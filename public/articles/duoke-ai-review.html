@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>客服机器人答非所问，用户为什么宁愿等人工？我做「多客AI」的一次复盘 · 金超</title>
+  <meta name="description" content="客服机器人答非所问，用户宁愿等人工。复盘「多客AI」：跨境电商卖家真正需要什么样的AI客服。" />
+  <style>
+:root {
+  --paper: #faf8f4;
+  --ink: #22201d;
+  --ink-muted: #7a756e;
+  --rule: #e7e2da;
+  --accent: #8a5a44;
+  --accent-hover: #6f4635;
+  --surface: #f3efe8;
+}
+* { box-sizing: border-box; }
+html, body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: "Helvetica Neue", Arial, "PingFang SC", "Noto Sans SC", "Microsoft YaHei", sans-serif;
+  line-height: 1.75;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: var(--accent); text-decoration: none; }
+a:hover { color: var(--accent-hover); text-decoration: underline; text-underline-offset: 3px; }
+.wrap {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 48px 24px 96px;
+}
+.back {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  color: var(--ink-muted);
+  margin-bottom: 40px;
+}
+.back:hover { color: var(--accent); text-decoration: none; }
+.meta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+  font-size: 13px;
+  color: var(--ink-muted);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.06em;
+}
+.tag {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  background: rgb(138 90 68 / 0.08);
+  color: var(--accent);
+  padding: 4px 12px;
+  font-size: 12px;
+  letter-spacing: 0;
+}
+h1.title {
+  font-size: clamp(28px, 4vw, 36px);
+  line-height: 1.35;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  margin: 0 0 40px;
+}
+.article h1 { font-size: 1.5rem; margin: 2.2em 0 0.8em; }
+.article h2 { font-size: 1.35rem; margin: 2em 0 0.7em; font-weight: 600; }
+.article h3 { font-size: 1.15rem; margin: 1.6em 0 0.6em; font-weight: 600; }
+.article p { margin: 0 0 1.1em; }
+.article ul, .article ol { margin: 0 0 1.2em; padding-left: 1.4em; }
+.article li { margin: 0.35em 0; }
+.article blockquote {
+  margin: 1.4em 0;
+  padding: 12px 18px;
+  border-left: 3px solid var(--accent);
+  background: var(--surface);
+  color: var(--ink-muted);
+  border-radius: 0 8px 8px 0;
+}
+.article blockquote p:last-child { margin-bottom: 0; }
+.article strong { font-weight: 600; }
+.article hr {
+  border: none;
+  border-top: 1px solid var(--rule);
+  margin: 2.5em 0;
+}
+.article code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.9em;
+  background: var(--surface);
+  padding: 1px 6px;
+  border-radius: 4px;
+}
+.article pre {
+  background: var(--surface);
+  padding: 16px;
+  border-radius: 12px;
+  overflow-x: auto;
+  border: 1px solid var(--rule);
+}
+.article pre code { background: none; padding: 0; }
+.footer-nav {
+  margin-top: 64px;
+  padding-top: 24px;
+  border-top: 1px solid var(--rule);
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+}
+</style>
+</head>
+<body>
+  <main class="wrap">
+    <a class="back" href="/#writing">← 返回文章</a>
+    <div class="meta">
+      <span class="tag">AI 客服</span>
+      <time datetime="2026-10-18">2026.10.18</time>
+    </div>
+    <h1 class="title">客服机器人答非所问，用户为什么宁愿等人工？我做「多客AI」的一次复盘</h1>
+    <div class="article">
+<h2>一、先说一个让我愣住的场景</h2>
+<p>2025年8月我入职深圳美云集，接手的项目是「多客AI」，给在多个平台开店的跨境电商卖家做AI客服。入职第二周，我坐在一位卖家的客服旁边看她干活。买家问：&quot;我上周买的那件外套，尺码偏小，能换大一号吗？运费谁出？&quot;</p>
+<p>系统里已有的智能回复弹了出来，内容是一段通用的&quot;退换货政策说明&quot;，把所有平台的规则混在一起，连这个店铺是否支持免费换货都没提。客服看了一眼，叹口气，把建议删掉，自己手打了一遍。</p>
+<p>我问她：这个功能你平时用吗？她说：&quot;一开始用，后来发现十条里有三四条要改，改的时间比自己写还长，就不看了。&quot;</p>
+<p>这句话后来成了整个项目的起点。AI客服最怕的不是&quot;没有&quot;，而是&quot;有，但没人敢用&quot;。</p>
+<h2>二、行业现状：需求很大，用户却不满意</h2>
+<p>先交代一下大环境，避免空谈。</p>
+<p>艾瑞咨询等机构近年的报告里，反复把&quot;智能客服&quot;列为企业服务中较成熟的AI应用方向。生成式AI出来之后，国内外厂商都在把客服做成大模型产品。我能确认的公开信息有这几条：</p>
+<ol>
+<li>2023年，Gartner发布过对客服领域的预测，认为生成式AI会明显改变客服团队的工作方式，同时提醒企业要关注准确性和客户体验风险。</li>
+<li>2024年2月，加拿大航空的聊天机器人对一位乘客错误描述了丧亲票价政策，加拿大不列颠哥伦比亚省民事仲裁庭判定航空公司需要对机器人给出的信息负责并赔偿乘客（加拿大媒体及多家国际媒体2024年2月均有报道）。这个案子的意义很直接：客服机器人说错话，企业要买单。</li>
+<li>国内的智齿科技（Sobot）、快牛等厂商，官网都明确把&quot;AI客服&quot;&quot;智能机器人&quot;作为主打产品，说明这个赛道竞争已经很充分。</li>
+</ol>
+<p>我需要强调：我没有拿到行业统一的&quot;AI客服准确率&quot;权威数据，所以文章里不引用任何行业平均准确率。后文所有准确率数字，只来自我们自己项目的内部测试。</p>
+<p>这些背景告诉我两件事：第一，不缺功能，缺的是&quot;说得对&quot;；第二，说错的代价不是用户体验差一点，而是可能真的要赔钱、要丢订单。</p>
+<h2>三、怎么找到&quot;回复不准&quot;这个真痛点</h2>
+<h3>1. 竞品分析：先看别人把什么做满了</h3>
+<p>我把快牛、智齿这些竞品的功能清单拉成一张表，按&quot;接入平台、机器人类型、知识库管理、转人工、数据报表&quot;逐项比较。看完的感受是：功能项基本都有，差异不在&quot;有没有&quot;，而在&quot;好不好用&quot;。</p>
+<p>光看官网和演示是看不出好不好用的。所以我做了第二件事：把竞品的试用版实际登录，拿真实的卖家问题去问，比如尺码、物流时效、关税、退款规则这些高频问题，记录每条回答是否能直接发给买家。</p>
+<p>这一步让我形成了一个假设：卖家的真实问题高度依赖&quot;店铺自己的规则&quot;，通用机器人天然答不准。</p>
+<h3>2. 用户访谈：把假设放到真人面前验证</h3>
+<p>假设只是假设。我约了核心用户深聊，对象是做多平台的卖家和他们的客服主管。访谈提纲我刻意避开&quot;你想要什么功能&quot;，改问三类事实问题：</p>
+<ul>
+<li>上一次你们因为客服答错，发生了什么？</li>
+<li>现在客服一天花多少时间在重复问题上？</li>
+<li>你用过的机器人，哪一刻让你决定不再用它？</li>
+</ul>
+<p>几轮下来，卖家的回答高度一致：他们不嫌机器人慢，也不嫌界面丑，真正让他们放弃的是&quot;答错了要自己兜底&quot;。有人提过，一次把运费规则答错，最后卖家自己承担了差价。</p>
+<p>这就把痛点从&quot;效率不够&quot;收窄到了&quot;回复不准确&quot;。需要说明的是，这是我们访谈得出的定性结论，样本量有限，我不会把它外推成行业结论。</p>
+<h3>3. 为什么说它是&quot;真痛点&quot;</h3>
+<p>我自己用三条标准判断：</p>
+<ul>
+<li><strong>高频</strong>：几乎每个客服每天都会遇到。</li>
+<li><strong>有代价</strong>：答错会造成赔付、差评或二次沟通。</li>
+<li><strong>现有方案没解决</strong>：竞品有这个功能，但用户不信任。</li>
+</ul>
+<p>三条都满足，才值得投入。</p>
+<h2>四、方案选择：大模型 + RAG + 多轮上下文，各管什么</h2>
+<p>这一节我尽量用业务人员能听懂的话说。</p>
+<h3>大语言模型：会&quot;说话&quot;的新员工</h3>
+<p>大模型像一个读过很多书、表达流畅的新员工。它能听懂买家各种说法，比如&quot;能不能换大一码&quot;&quot;size 不合适&quot;，并写出通顺的回复。</p>
+<p>它的短板也像新员工：不知道你们店的具体规则，遇到不确定的地方还会&quot;凭感觉编&quot;。这正是&quot;回复不准&quot;的主要来源之一。</p>
+<h3>RAG知识库检索：让新员工先翻手册再回答</h3>
+<p>RAG的全称是检索增强生成。用人话说：买家提问后，系统先去卖家自己的资料里（退换货政策、物流说明、商品详情、常见问题）找出最相关的几段，再把这几段连同问题一起交给大模型，要求&quot;按这些资料回答&quot;。</p>
+<p>这样做解决的是&quot;知道什么&quot;的问题：规则来自卖家自己的文档，而不是模型的记忆。规则改了，更新文档即可，不用重新训练模型。</p>
+<h3>多轮对话上下文：让新员工记得前面聊过什么</h3>
+<p>买家很少一句话说完。比如先问&quot;这件外套有货吗&quot;，接着问&quot;那能换大一号吗&quot;，再问&quot;运费谁出&quot;。如果系统每句话都当成第一次见，&quot;那&quot;指的是什么就丢了。</p>
+<p>多轮上下文解决的是&quot;记得说过什么&quot;的问题：把之前的对话一并带入，让回复能接得上。</p>
+<h3>三者的分工</h3>
+<ul>
+<li>大模型管&quot;怎么说&quot;。</li>
+<li>RAG管&quot;依据什么说&quot;。</li>
+<li>多轮上下文管&quot;接着上文说&quot;。</li>
+</ul>
+<p>缺一样会出什么问题，我们在测试里都见过：没有RAG，容易编规则；没有多轮上下文，容易答非所问；只有检索没有大模型，回复生硬、不会处理变着花样的问法。</p>
+<h3>为什么不是别的方案</h3>
+<p>我们也考虑过纯规则机器人和纯关键词匹配。它们稳，但买家的问法千变万化，维护规则的人力很快撑不住。选这套组合，是因为它既能应对灵活问法，又能把答案约束在卖家自己的资料里。</p>
+<h2>五、准确率从65%到约90%：验收标准怎么定，怎么迭代</h2>
+<p>这是整个项目最考验产品经理的部分。先给结果：AI回复准确率从65%提升到约90%，人力成本降低约40%。下面讲过程。</p>
+<h3>1. 先定义&quot;什么算准确&quot;</h3>
+<p>&quot;准确&quot;如果没有定义，团队会各说各话。我在PRD里把它拆成可判定的标准：</p>
+<ul>
+<li>回复内容与卖家知识库中的规则一致；</li>
+<li>没有编造不存在的政策、价格或时效；</li>
+<li>回答了买家真正问的问题；</li>
+<li>无法确定时，应该转人工或追问，而不是硬答。</li>
+</ul>
+<p>最后一条很关键：我们把&quot;该转人工时转人工&quot;也算作正确行为，否则团队会为了刷准确率，鼓励模型什么都硬答。</p>
+<h3>2. 建一套固定的测试集</h3>
+<p>我们收集真实的历史买家问题，按场景分类（尺码、物流、退换货、售前咨询等），让业务同事标注&quot;标准答案&quot;。上线前每次改动都用这套题集跑一遍，对比准确率。没有固定题集，今天感觉好明天感觉差，永远说不清有没有进步。</p>
+<h3>3. 迭代怎么做：看错题，不看平均分</h3>
+<p>65%的时候，我们没有盲目调模型，而是把答错的题逐条归因。常见原因大致分几类：</p>
+<ul>
+<li>知识库里根本没有这条规则（补资料）；</li>
+<li>资料有，但检索没找对（调检索）；</li>
+<li>找对了，模型却没按资料答（调提示词和约束）；</li>
+<li>多轮对话里指代没接上（改上下文处理）。</li>
+</ul>
+<p>每一轮只改一类问题，改完重跑题集，确认没有把别的题改坏。这个节奏看起来慢，其实最快，因为每一步都知道改动有没有效果。</p>
+<h3>4. 上线后继续迭代</h3>
+<p>上线不是终点。我们把客服&quot;采纳、修改、删除&quot;AI建议的行为作为反馈，修改和删除多的问题，回流到测试集里。我之前在卡谷做ERP时形成的习惯在这里用上了：数据对不上的单子，必须追到源头，不能只看总数。</p>
+<h2>六、我的两段经历，怎么互相帮忙</h2>
+<p><strong>ERP经历教会我&quot;流程要对得上数据&quot;。</strong> 在上海卡谷电子商务（2023.04–2025.06），我从0到1做Caguuu ERP，连接Shopline、斑马ERP、轶仓WMS的数据，例如订单状态变化会触发库存预占、扣减与释放。最终库存准确率达到99%以上，库存不同步导致的异常单减少约40%，仓库小程序扫码替代纸质单据后，单件处理时间缩短约30%。这段经历让我对&quot;准确&quot;这件事有近乎偏执的要求，也是我后来坚持把准确率拆成可验收指标的原因。</p>
+<p><strong>ChatGPT和AI工具的使用经验，帮我判断&quot;能做什么、不能做什么&quot;。</strong> 我很早就在用刚火起来的ChatGPT，后来公司强调用AI提效，我在日常工作中也开始用AI辅助写文档、梳理逻辑。这让我转型AI产品经理时，没有把大模型当魔法，而是当成一个需要约束和验收的员工。</p>
+<p><strong>Vibe Coding缩短了验证周期。</strong> 我能快速把想法做成可交互原型，让用户直接上手看，而不是对着文档想象。很多问题，在原型阶段就能暴露。</p>
+<h2>七、给你的方法论：从找场景到上线迭代，7步走</h2>
+<p>如果你也想做一个AI产品，不妨按这个顺序，读完就可以开始第一步：</p>
+<p><strong>第一步：找一个具体场景，不要从技术出发。</strong> 写下&quot;谁，在什么时候，做什么事，卡在哪&quot;。例如&quot;跨境卖家的客服，在回复买家退换货问题时，答错要兜底&quot;。</p>
+<p><strong>第二步：做竞品体验，不只看功能表。</strong> 至少拿20个真实问题去试用竞品，记录哪些答案能直接用，哪些不能。</p>
+<p><strong>第三步：访谈5到8位真实用户。</strong> 只问过去发生过的事实，比如&quot;上一次出错是什么情况&quot;，不问&quot;你想要什么功能&quot;。</p>
+<p><strong>第四步：用三条标准判断痛点是否成立。</strong> 高频、有代价、现有方案没解决。三条缺一，就先别做。</p>
+<p><strong>第五步：选方案时先问&quot;缺的是哪种能力&quot;。</strong> 缺表达选大模型，缺事实依据选检索知识库，缺记忆选多轮上下文。别为了用新技术而堆技术。</p>
+<p><strong>第六步：上线前把&quot;好&quot;定义清楚，并建固定题集。</strong> 写出可判定的验收标准，包含&quot;不确定时转人工&quot;这类边界；收集至少一两百条真实问题，标注标准答案。</p>
+<p><strong>第七步：上线后按错题迭代。</strong> 每轮只改一类问题，改完重跑题集；把用户的采纳、修改、删除行为回流成新题，持续补充。</p>
+<h2>八、最后说一句</h2>
+<p>回到开头那位客服。她后来告诉我，系统给出的建议开始能直接发了，只在少数情况下改几个字。这比任何一个漂亮的数字，都更让我觉得这个项目做对了方向。</p>
+<p>AI产品真正的竞争力，往往不在模型多先进，而在你有没有耐心把&quot;准不准&quot;这件事，一条一条地验出来。</p>
+<hr />
+<p><strong>参考来源（均为公开可查）：</strong></p>
+<ul>
+<li>Gartner关于生成式AI对客户服务影响的相关预测与研究发布（2023年）</li>
+<li>加拿大航空聊天机器人误导乘客案：加拿大不列颠哥伦比亚省民事仲裁庭裁决，及加拿大媒体、国际媒体2024年2月相关报道</li>
+<li>智齿科技（Sobot）、快牛官方网站产品介绍页</li>
+</ul>
+<p>说明：行业层面我只引用了上述可查证信息；文中准确率、人力成本等数字均为本人所在项目的内部结果，非行业统计。</p>
+
+    </div>
+    <div class="footer-nav">
+      <a href="/#writing">← 返回文章列表</a>
+      <a href="/">首页</a>
+    </div>
+  </main>
+</body>
+</html>

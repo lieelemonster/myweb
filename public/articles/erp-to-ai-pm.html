@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>从ERP到AI客服：我这两年看到的产品经理能力变化 · 金超</title>
+  <meta name="description" content="从 Caguuu ERP 到「多客AI」，两年两段产品经历，聊聊产品经理能力边界的真实变化。" />
+  <style>
+:root {
+  --paper: #faf8f4;
+  --ink: #22201d;
+  --ink-muted: #7a756e;
+  --rule: #e7e2da;
+  --accent: #8a5a44;
+  --accent-hover: #6f4635;
+  --surface: #f3efe8;
+}
+* { box-sizing: border-box; }
+html, body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: "Helvetica Neue", Arial, "PingFang SC", "Noto Sans SC", "Microsoft YaHei", sans-serif;
+  line-height: 1.75;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: var(--accent); text-decoration: none; }
+a:hover { color: var(--accent-hover); text-decoration: underline; text-underline-offset: 3px; }
+.wrap {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 48px 24px 96px;
+}
+.back {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  color: var(--ink-muted);
+  margin-bottom: 40px;
+}
+.back:hover { color: var(--accent); text-decoration: none; }
+.meta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+  font-size: 13px;
+  color: var(--ink-muted);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.06em;
+}
+.tag {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  background: rgb(138 90 68 / 0.08);
+  color: var(--accent);
+  padding: 4px 12px;
+  font-size: 12px;
+  letter-spacing: 0;
+}
+h1.title {
+  font-size: clamp(28px, 4vw, 36px);
+  line-height: 1.35;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  margin: 0 0 40px;
+}
+.article h1 { font-size: 1.5rem; margin: 2.2em 0 0.8em; }
+.article h2 { font-size: 1.35rem; margin: 2em 0 0.7em; font-weight: 600; }
+.article h3 { font-size: 1.15rem; margin: 1.6em 0 0.6em; font-weight: 600; }
+.article p { margin: 0 0 1.1em; }
+.article ul, .article ol { margin: 0 0 1.2em; padding-left: 1.4em; }
+.article li { margin: 0.35em 0; }
+.article blockquote {
+  margin: 1.4em 0;
+  padding: 12px 18px;
+  border-left: 3px solid var(--accent);
+  background: var(--surface);
+  color: var(--ink-muted);
+  border-radius: 0 8px 8px 0;
+}
+.article blockquote p:last-child { margin-bottom: 0; }
+.article strong { font-weight: 600; }
+.article hr {
+  border: none;
+  border-top: 1px solid var(--rule);
+  margin: 2.5em 0;
+}
+.article code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.9em;
+  background: var(--surface);
+  padding: 1px 6px;
+  border-radius: 4px;
+}
+.article pre {
+  background: var(--surface);
+  padding: 16px;
+  border-radius: 12px;
+  overflow-x: auto;
+  border: 1px solid var(--rule);
+}
+.article pre code { background: none; padding: 0; }
+.footer-nav {
+  margin-top: 64px;
+  padding-top: 24px;
+  border-top: 1px solid var(--rule);
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+}
+</style>
+</head>
+<body>
+  <main class="wrap">
+    <a class="back" href="/#writing">← 返回文章</a>
+    <div class="meta">
+      <span class="tag">产品思考</span>
+      <time datetime="2026-10-18">2026.10.18</time>
+    </div>
+    <h1 class="title">从ERP到AI客服：我这两年看到的产品经理能力变化</h1>
+    <div class="article">
+<h2>先说结论</h2>
+<p>我今年26岁，做了两段产品经理。第一段在上海卡谷电子商务，做自研的 Caguuu ERP，时间是2023年4月到2025年6月。第二段在深圳美云集网络科技，做面向跨境电商卖家的AI客服系统「多客AI」，2025年8月到2026年9月。</p>
+<p>两段经历让我有一个很具体的感受：产品经理这个岗位的核心任务没变，还是判断什么值得做、做到什么程度算好。但完成这件事的手段变了三处。</p>
+<ol>
+<li>原型阶段，我们能自己动手做出能点的东西，不用再靠几十页文档去想象。</li>
+<li>判断需求时，多了一个绕不开的问题：当前技术到底做不做得到，做到多准。</li>
+<li>验收时，&quot;功能做完了&quot;不再等于&quot;做好了&quot;。</li>
+</ol>
+<p>下面按这几条展开，最后给一份可以直接照着练的清单。</p>
+<h2>一、我怎么从ERP走到AI客服</h2>
+<p>在卡谷，我从0到1搭了 Caguuu ERP，包括Web后台和仓库小程序，数据要和 Shopline、斑马ERP、轶仓WMS 对接，覆盖商品、订单、采购、仓储。结果是库存准确率做到99%以上，库存不同步导致的异常单减少约40%。仓库用小程序扫码替代了纸质单据，单件处理时间缩短约30%。</p>
+<p>那段时间我已经在用AI工具写文档、梳理逻辑。我很早就接触了ChatGPT，刚火起来时就拿来试。后来公司明确要求用AI提效，我才发现自己已经比同事多走了一段路。这个&quot;早用&quot;，成了我转AI产品经理的契机。</p>
+<p>转岗后我才发现，会用AI和会做AI产品是两回事。前者是你自己的效率工具，后者是你要对一个会出错的系统负责。</p>
+<h2>二、传统产品和AI产品，工作方式差在哪</h2>
+<p>我用自己的两段经历来对比，主要看四个地方。</p>
+<h3>1. 需求文档：从写规则到写样例</h3>
+<p>做ERP时，PRD的核心是规则和状态。比如订单状态变化会触发库存预占、扣减、释放，我要把每个状态怎么流转、什么条件下触发什么动作写清楚。规则写对了，开发照着实现，结果基本是确定的。</p>
+<p>做多客AI时，PRD里仍然有流程和界面，但最关键的部分变成了&quot;什么样的回答算对&quot;。大语言模型的输出不是由我写的规则决定的。我能控制的是它能查到什么资料、看到多少对话上下文、被要求怎么回答。所以文档里要多写三样东西：</p>
+<ul>
+<li>知识库该放什么内容，更新由谁负责。</li>
+<li>多轮对话里，模型需要记住前面几轮的什么信息。</li>
+<li>一批典型问题，以及我们认可的标准回答，包括该答和不该答的边界。</li>
+</ul>
+<p>这批样例既是需求，也是后面验收的依据。</p>
+<h3>2. 验收标准：从通过/不通过到准确率</h3>
+<p>ERP的验收大多是二选一：订单状态变了，库存有没有正确预占，对就是对，错就是错。</p>
+<p>AI客服不一样，同一个问题今天答得好，换个问法可能就答歪。所以我们的验收标准里加了AI回复准确率这个指标。它不是上线前测一次就结束，而是要持续看、持续改。多客AI的回复准确率从65%提升到约90%，靠的就是反复看错在哪里、归类、改方案，再测一遍。</p>
+<p>这里有一个我自己吃过的认识：准确率这个数字本身，必须先和研发、算法、业务三方对齐定义。什么算&quot;准确&quot;？答得对但太啰嗦算不算？该转人工却硬答了算不算？定义不清，数字再漂亮也没用。</p>
+<h3>3. 和研发、算法的协作：从交需求到一起看错例</h3>
+<p>做ERP时，我和研发的关系比较线性：我写需求，评审，研发开发，测试，上线。</p>
+<p>做AI客服时，协作变得更像一起debug。我负责PRD、评审、跨部门推进、验收标准和迭代，但回复不准的时候，原因可能在好几个地方：知识库里没有这条内容，检索时没召回对的片段，上下文太长被截断，或者提示词没写清楚。产品经理如果看不懂这些环节，就只能说&quot;不准，你们改改&quot;，这样沟通很低效。所以我必须自己看真实对话、自己判断问题出在哪一层，再去找对应的人。</p>
+<h3>4. 发布节奏：从上线就稳定到上线才开始</h3>
+<p>ERP上线后，只要没有bug，行为就稳定。AI产品上线后，用户会问出你想不到的问题，错误才真正暴露出来。所以我的工作重心从&quot;上线前把需求写完&quot;，往&quot;上线后持续看数据、持续迭代&quot;移了不少。</p>
+<h2>三、Vibe Coding：把需求验证从几周压到几天</h2>
+<p>先交代一下这个词。&quot;Vibe Coding&quot;是 Andrej Karpathy 在2025年2月在社交平台上提出的说法，大意是用自然语言向AI描述想要的东西，让AI写代码，人主要负责看效果、提意见。英国的柯林斯词典后来把它选为2025年度词汇（Collins Dictionary，2025年11月）。词本身很新，但我关心的是它对产品经理的实际价值。</p>
+<p>我有计算机科学与技术的本科背景，拿过计算机二级证书，也在校园编程比赛里得过二等奖。所以我能比较快上手，也能看懂AI写出来的代码大概在干什么。但我想强调，Vibe Coding对产品经理最有用的地方，不在&quot;能写代码&quot;，而在下面这个用法。</p>
+<h3>我的真实做法</h3>
+<p>做需求验证时，我不再先写一份很长的文档，而是先让AI按我的描述做出一个能点击、能输入、能看到结果的原型，然后拿着它去找用户或同事。</p>
+<p>这样做有几个好处：</p>
+<ol>
+<li><strong>用户的反馈更具体。</strong> 给用户看一份文档，他会说&quot;差不多&quot;&quot;可以&quot;。给他一个能点的东西，他会直接说&quot;这个按钮我找不到&quot;&quot;这里我想先看订单号&quot;。</li>
+<li><strong>争论变少。</strong> 团队里对一个交互有分歧时，做出来比较一下，比开会讨论快。</li>
+<li><strong>我自己想得更清楚。</strong> 很多逻辑漏洞，在我动手让原型跑起来时才暴露出来。</li>
+</ol>
+<h3>它的边界</h3>
+<p>我也要说清楚它的局限，免得误导读者。</p>
+<ul>
+<li>原型能跑，不等于能上线。安全、稳定性、权限、和现有系统对接这些问题，仍然需要研发来处理。</li>
+<li>AI生成的代码需要有人看。Stack Overflow 2025年开发者调查显示，84%的受访者正在使用或计划使用AI工具，但对AI输出准确性表示不信任的人（46%）多于信任的人（33%）。这个数据让我更确定：产品经理拿原型做验证没问题，别把它当成最终交付物。</li>
+<li>原型验证的是&quot;这个需求对不对&quot;，验证不了&quot;这个技术方案行不行&quot;。后者要靠和算法、研发一起做测试。</li>
+</ul>
+<p>我的原则很简单：原型用来换取判断，不用来替代工程。</p>
+<h2>四、在&quot;技术能做到什么&quot;和&quot;用户真正需要什么&quot;之间做判断</h2>
+<p>这是AI产品经理最难的一块。我在多客AI上的做法分三步。</p>
+<h3>第一步：先找真问题，不先想技术</h3>
+<p>我们分析了快牛、智齿（Sobot）等竞品，也深访了核心用户。多客AI面向的是多平台跨境电商卖家，他们的客服要在不同平台之间切换，咨询量大，重复问题多。深访下来，最集中的痛点是：现有的智能回复不准确。</p>
+<p>这个发现很重要。如果当时只盯着&quot;大模型很强、能做很多事&quot;，很容易去做一堆花哨功能，比如自动写营销话术、生成报表。但用户最在意的是一件朴素的事：回复别答错。</p>
+<h3>第二步：用技术约束收窄方案</h3>
+<p>针对&quot;回复不准&quot;，我们的方案是大语言模型加RAG知识库检索加多轮对话上下文。RAG（检索增强生成）这个思路来自 Facebook AI Research 2020年发表的论文《Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks》，核心是让模型回答前先去查资料，再根据查到的内容作答，从而减少凭空编造。</p>
+<p>选这个方案，是因为它回应了用户的真问题：客服要回答的是店铺自己的商品、政策、物流规则，这些内容模型本身并不知道，必须让它先查。多轮上下文则是因为买家的问题常常分几句说，只看最后一句会答歪。</p>
+<h3>第三步：明确不做什么</h3>
+<p>AI客服答错，代价是真实的。2024年2月，加拿大不列颠哥伦比亚省的民事纠纷裁决庭裁定，加拿大航空要为其网站聊天机器人给出的错误退票信息负责（Moffatt v. Air Canada，2024年2月，多家媒体报道）。这个案例让我在做边界设计时更谨慎：涉及金额、赔付、政策承诺这类问题，要想清楚哪些让AI答，哪些转人工。</p>
+<p>再看一个相反方向的参考。Klarna 在2024年2月公布，其AI助手上线首月处理了约三分之二的客服对话；而在2025年5月，彭博社报道其CEO表示公司将重新增加真人客服，以保证服务质量。两个时间点放在一起看，我的体会是：自动化的比例越高，越要盯质量，不能只看节省了多少人。</p>
+<p>这些参考对我的价值，是帮我判断&quot;哪里可以放手让AI做，哪里要留人&quot;。多客AI最后的结果是，AI回复准确率从65%提升到约90%，人力成本降低约40%。我不会说这是一次完美的成功，因为剩下那一部分不准，仍然需要持续处理。</p>
+<h2>五、行业对产品经理的要求，真实在发生什么变化</h2>
+<p>我只引用我能核实到来源的信息。</p>
+<p><strong>1. 会不会用AI，正在变成基本要求。</strong> 微软与领英联合发布的《2024年工作趋势指数》（2024年5月）显示，75%的知识型员工在工作中使用AI；66%的企业领导者表示，不会考虑录用没有AI技能的人。这个调查覆盖的是广义的知识型岗位，不专指产品经理，但方向和我在招聘、团队里的感受一致。</p>
+<p><strong>2. 做AI项目，很多死在从演示到落地这一步。</strong> Gartner在2024年7月预测，到2025年底，至少30%的生成式AI项目会在概念验证之后被放弃，原因包括数据质量差、风险控制不足、成本上升、业务价值不清晰。Gartner在2025年6月还预测，到2027年底，超过40%的智能体（agentic AI）项目会被取消。另外，MIT的NANDA项目2025年8月发布的报告称，绝大多数企业的生成式AI试点没有带来可衡量的财务回报，不过这份报告的研究方法在业内有争议，我只当作一个参考。</p>
+<p>这些数据放在一起，对产品经理意味着什么？我的理解是：能把演示做漂亮的人很多，能把一个AI功能做到稳定可用、说清楚值不值的人更稀缺。</p>
+<p><strong>3. 写代码的门槛在降，判断力的价值在升。</strong> 这一条是我的个人判断，没有哪份报告能直接证明，所以单独标注。我的依据是我自己的经历：当原型能很快做出来，产品经理真正的差异，就落在&quot;该做哪个、做到什么程度、怎么证明它有效&quot;上。</p>
+<h2>六、产品经理能力升级清单</h2>
+<p>下面这份清单，来自我这两年踩过的坑。每一项我都给出练习方法，读完就能动手。</p>
+<h3>能力1：用Vibe Coding做可交互原型</h3>
+<p><strong>练习方法：</strong></p>
+<ol>
+<li>选一个你手头真实的小需求，比如一个内部审批页或一个数据查询页。</li>
+<li>用一段话写清楚：谁用、要完成什么、输入什么、输出什么。</li>
+<li>让AI工具生成原型，要求先只做核心流程。</li>
+<li>自己点一遍，列出三个不顺的地方，再让AI改。</li>
+<li>拿给两个真实用户，只问一句：&quot;你现在想做什么？&quot;然后观察他们怎么操作，不要解释。</li>
+</ol>
+<p><strong>自检标准：</strong> 一个需求从想法到能给人点的原型，你能不能在一两天内完成。</p>
+<h3>能力2：读懂AI产品的基本构成</h3>
+<p><strong>练习方法：</strong></p>
+<ol>
+<li>找一个你常用的AI产品，画出它的流程：用户输入，到查什么资料，到模型怎么回答，再到结果怎么展示。</li>
+<li>读一遍RAG的原始论文摘要和一篇通俗解释，用自己的话讲给同事听。</li>
+<li>在你自己的产品里，写出每个环节可能出错的地方。</li>
+</ol>
+<p><strong>自检标准：</strong> 当AI答错时，你能初步判断问题大概出在哪一层。</p>
+<h3>能力3：定义并验收&quot;准确&quot;</h3>
+<p><strong>练习方法：</strong></p>
+<ol>
+<li>收集真实用户的问题，按类型分组。</li>
+<li>为每类问题写出标准答案，并标出&quot;必须转人工&quot;的情形。</li>
+<li>和研发、算法、业务三方一起评审&quot;准确&quot;的定义，写进验收标准。</li>
+<li>每次迭代后用同一批问题重测，记录变化。</li>
+<li>每周看一批真实对话，把错误归类，排出优先级。</li>
+</ol>
+<p><strong>自检标准：</strong> 你能说清楚自己产品的准确率怎么算、谁来判、多久测一次。</p>
+<h3>能力4：在技术可行和用户需要之间做取舍</h3>
+<p><strong>练习方法：</strong></p>
+<ol>
+<li>做需求前，先写一句用户原话描述的痛点。</li>
+<li>再写一句&quot;如果用AI做，最可能出错的地方是什么&quot;。</li>
+<li>对每个出错点，决定是靠技术改进、靠流程兜底，还是干脆不做。</li>
+<li>把&quot;不做什么&quot;写进PRD。</li>
+</ol>
+<p><strong>自检标准：</strong> 你的文档里有一节专门写边界和兜底方案。</p>
+<h3>能力5：和研发、算法一起看错例</h3>
+<p><strong>练习方法：</strong></p>
+<ol>
+<li>每周固定一个时间，和研发、算法一起过十条错误案例。</li>
+<li>每条案例只回答三个问题：错在哪、原因在哪一层、谁来改。</li>
+<li>你自己先做初步归类，再讨论。</li>
+</ol>
+<p><strong>自检标准：</strong> 你提出的问题，研发和算法觉得有方向，不是一句&quot;效果不好&quot;。</p>
+<h3>能力6：用数据说明价值</h3>
+<p><strong>练习方法：</strong></p>
+<ol>
+<li>上线前，写下你要证明的两三个指标，比如准确率、人工处理量、处理时间。</li>
+<li>上线前先记下现状数字，上线后对比。</li>
+<li>用一页纸向老板讲清楚：投入了什么，变化是什么，剩下的问题是什么。</li>
+</ol>
+<p>我在两段工作里都有这样的对照：ERP里是库存准确率、异常单数量、单件处理时间；AI客服里是回复准确率和人力成本。有对照，后续的资源申请才有依据。</p>
+<h2>七、给读者的四周行动计划</h2>
+<p>如果你读完想马上开始，可以按这个节奏：</p>
+<p><strong>第1周：动手做原型。</strong> 选一个真实小需求，用Vibe Coding做出可点击的版本，找两个人试用。</p>
+<p><strong>第2周：拆一个AI产品。</strong> 画出一个AI产品的完整流程，标出可能出错的环节，读RAG摘要，写一页笔记。</p>
+<p><strong>第3周：建一批测试问题。</strong> 如果你已经在做AI功能，收集二三十个真实问题，写出标准答案，跑一遍，记录哪些答错了、为什么。</p>
+<p><strong>第4周：写一份带边界的需求文档。</strong> 在原来的PRD模板里加三节：验收样例、准确率定义、不做什么和兜底方案。拿去和研发、算法评审一次。</p>
+<p>四周之后，你手里会有一个原型、一批测试问题和一份新模板。这三样东西，比任何&quot;我懂AI&quot;的说法都管用。</p>
+<h2>最后</h2>
+<p>我做ERP时学到的是，把业务规则想清楚、把数据对接准确，系统就会稳定。做AI客服时学到的是，规则之外还要接受不确定性，并且用持续的测试和迭代去管理它。</p>
+<p>产品经理手里的工具在变快，但&quot;这件事值不值得做、做到什么程度算好&quot;这个判断，始终要由我们自己来下。</p>
+<hr />
+<p><strong>主要来源（引用前建议再核对原文）：</strong></p>
+<ul>
+<li>Karpathy 提出 Vibe Coding：本人社交平台发文，2025年2月</li>
+<li>Collins Dictionary 2025年度词汇：柯林斯词典官方发布，2025年11月</li>
+<li>Stack Overflow Developer Survey 2025：Stack Overflow，2025年</li>
+<li>Microsoft &amp; LinkedIn《2024 Work Trend Index》：2024年5月</li>
+<li>Gartner 关于生成式AI项目被放弃的预测：2024年7月；关于智能体项目被取消的预测：2025年6月</li>
+<li>MIT NANDA 报告（生成式AI试点回报）：2025年8月，方法论存在争议</li>
+<li>Lewis 等，《Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks》，NeurIPS 2020</li>
+<li>Moffatt v. Air Canada，不列颠哥伦比亚省民事纠纷裁决庭，2024年2月</li>
+<li>Klarna AI客服：公司官方公告，2024年2月；彭博社报道，2025年5月</li>
+</ul>
+
+    </div>
+    <div class="footer-nav">
+      <a href="/#writing">← 返回文章列表</a>
+      <a href="/">首页</a>
+    </div>
+  </main>
+</body>
+</html>
