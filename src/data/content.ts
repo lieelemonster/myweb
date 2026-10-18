@@ -113,7 +113,7 @@ export const ARTICLES: Article[] = [
     excerpt: '三套系统各说各话，仓库靠表格拼业务。一个传统PM如何把跨境ERP从0做到1，以及AI真正帮上忙、帮不上忙的地方。',
     date: '2026.10.18',
     cover: img('photo-1696838163915-3649669f300f'),
-    href: '/articles/caguuu-erp-0to1.html',
+    href: 'articles/caguuu-erp-0to1.html',
   },
 {
     category: '转型复盘',
@@ -121,7 +121,7 @@ export const ARTICLES: Article[] = [
     excerpt: '我今年26岁，做了两年传统产品经理，又做了一年多AI产品经理。这篇文章讲为什么转、怎么转、转的时候卡在哪，以及一套可照着走的步骤。',
     date: '2026.10.18',
     cover: img('photo-1678366633407-7f49da199a42'),
-    href: '/articles/chatgpt-to-ai-pm.html',
+    href: 'articles/chatgpt-to-ai-pm.html',
   },
 {
     category: '产品思考',
@@ -129,7 +129,7 @@ export const ARTICLES: Article[] = [
     excerpt: '从 Caguuu ERP 到「多客AI」，两年两段产品经历。聊聊传统PM和AI产品经理在能力边界、工作方式上的真实变化。',
     date: '2026.10.18',
     cover: img('photo-1654198340681-a2e0fc449f1b'),
-    href: '/articles/erp-to-ai-pm.html',
+    href: 'articles/erp-to-ai-pm.html',
   },
 {
     category: 'AI 客服',
@@ -137,7 +137,7 @@ export const ARTICLES: Article[] = [
     excerpt: '客服机器人答非所问，用户宁愿等人工。复盘「多客AI」：跨境电商卖家真正需要什么样的AI客服，以及我们怎么改才见效。',
     date: '2026.10.18',
     cover: img('photo-1655841439659-0afc60676b70'),
-    href: '/articles/duoke-ai-review.html',
+    href: 'articles/duoke-ai-review.html',
   },
 ]
 
