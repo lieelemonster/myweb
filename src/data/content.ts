@@ -4,11 +4,11 @@ export const PROFILE = {
   name: '金超',
   initials: 'JC',
   role: 'AI 产品经理',
-  email: 'jinchao@example.com',
+  email: 'jinchao@patrickstarai.com',
   location: 'CHINA',
-  since: '2019',
+  since: '2023',
   socials: [
-    { label: 'GitHub', href: '#' },
+    { label: 'GitHub', href: 'https://github.com/lieelemonster' },
     { label: '微信', href: '#' },
     { label: '即刻', href: '#' },
     { label: '小红书', href: '#' },
@@ -74,7 +74,7 @@ export const PROJECTS: Project[] = [
 ]
 
 export const PRACTICE = {
-  years: { product: 6, ai: 3 },
+  years: { product: 3, ai: 1 },
   questions: [
     { key: 'WHY', q: '为什么值得做？', a: '先算清楚用户每天在这件事上浪费多少时间，再谈 AI 能省下多少。' },
     { key: 'WORKFLOW', q: 'AI 怎么嵌进工作流？', a: '不做新入口，优先嵌进用户已有的工具里，让 AI 出现在恰好需要的那一步。' },
@@ -143,18 +143,16 @@ export const ARTICLES: Article[] = [
 
 export const ABOUT = {
   headline: '白天做产品，晚上写代码，偶尔写点字。',
-  bio: '我相信好的 AI 产品应该让人感觉不到 AI 的存在。工作之外，我会把脑子里冒出来的小想法用 Vibe Coding 做成能用的东西，再把过程写成文章。',
-  interests: ['产品', 'AI', '写作', '游戏', '摄影', '数码'],
+  bio: '计算机科学与技术本科，持有计算机二级证书，获得过校园编程比赛二等奖。做过传统产品经理，现在专注 AI 产品，持续关注前沿 AI 技术，在技术可行性和用户价值之间做判断。工作之外，我会用 Vibe Coding 把想法快速做成可交互的原型，再把过程写成文章。',
+  interests: ['AI 产品', '大模型应用', 'Vibe Coding', '写作'],
   milestones: [
-    { value: '2000+', label: 'Vibe Coding 实践时长 / 小时' },
-    { value: '6年+', label: '互联网产品经验' },
-    { value: '30万+', label: '思考与复盘字数' },
+    { value: '3年+', label: '产品经理经验' },
+    { value: '1年+', label: 'AI 产品经理经验' },
+    { value: '4', label: '个人 Vibe Coding 项目' },
   ],
   journey: [
-    { year: '2019', title: '入行产品', tags: ['B 端', 'SaaS'] },
-    { year: '2021', title: '负责增长与数据产品', tags: ['增长', '数据'] },
-    { year: '2023', title: '转向大模型应用', tags: ['LLM', 'RAG'] },
-    { year: '2025', title: 'AI 原生产品 + Vibe Coding', tags: ['Agent', '独立开发'] },
+    { year: '2023', title: '产品经理 · 上海卡谷电子商务有限公司', tags: ['B 端', '跨境电商'] },
+    { year: '2025', title: 'AI 产品经理 · 深圳美云集网络科技有限责任公司', tags: ['LLM', 'RAG'] },
   ],
   photos: [img('photo-1499750310107-5fef28a66643'), img('photo-1783663911692-130a88e6ccc3')],
 }
@@ -164,11 +162,11 @@ export const ASK_AI = {
   answers: [
     {
       keys: ['做什么', '是谁', '介绍', '经历', '背景'],
-      text: '我是金超，一名 AI 产品经理，有 6 年互联网产品经验，近 3 年专注大模型应用落地。平时也用 Vibe Coding 把想法快速做成原型。',
+      text: '我是金超，一名 AI 产品经理，计算机科学与技术本科。2023 年开始做产品经理，2025 年起专注 AI 产品。平时也用 Vibe Coding 把想法快速做成可交互的原型。',
     },
     {
       keys: ['项目', '作品', '代表', 'demo'],
-      text: '比较有代表性的是 MeetingMind（会议纪要自动生成待办）和 Insight Radar（用户评论痛点聚类）。往上翻到 01 / SELECTED WORK 可以看到全部作品。',
+      text: '网站上收录了 4 个个人项目：AI 购买助手、AI 生态日报、智能客服和 AI 作曲。往上翻到 01 / SELECTED WORK 可以看到详情和链接。',
     },
     {
       keys: ['看法', '观点', '怎么看', '理念', 'ai 产品'],
@@ -176,7 +174,7 @@ export const ASK_AI = {
     },
     {
       keys: ['联系', '邮箱', '微信', '合作', '招聘'],
-      text: `欢迎来聊！邮箱是 ${'jinchao@example.com'}，页面最底部也有其他联系方式。`,
+      text: `欢迎来聊！邮箱是 ${'jinchao@patrickstarai.com'}，页面最底部也有其他联系方式。`,
     },
     {
       keys: ['工具', '技术栈', 'cursor', 'claude'],

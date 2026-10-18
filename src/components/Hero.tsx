@@ -7,9 +7,9 @@ const CONTACT_EMAIL = PROFILE.email
 const TAGLINE = '把 AI 能力变成用户真正愿意用的产品。'
 const FOCUS = ['AI 产品落地', '大模型应用', 'Agent 设计', 'Vibe Coding']
 const STATS = [
-  { value: '6+', label: '年产品经验' },
-  { value: '10+', label: 'AI 项目落地' },
-  { value: '20+', label: 'Vibe Coding 作品' },
+  { value: '3+', label: '年产品经验' },
+  { value: '1+', label: '年 AI 产品经验' },
+  { value: '4', label: 'Vibe Coding 项目' },
 ]
 
 const pill =
@@ -67,7 +67,7 @@ export default function Hero({ start = true }: { start?: boolean }) {
         </p>
 
         <p className="text-white/60 text-[14px] sm:text-[16px] leading-relaxed max-w-md mb-6" style={reveal(0.1)}>
-          专注大模型应用与 AI 产品落地，从用户痛点出发定义问题，用数据与评测驱动迭代，也习惯亲手用 AI 编程把想法快速做成可用的原型。
+          计算机科学与技术本科，3 年产品经验，近一年专注 AI 产品。持续关注前沿 AI 技术，在技术可行性和用户价值之间做判断，也习惯用 Vibe Coding 把想法快速做成可交互的原型。
         </p>
 
         <ul className="flex flex-wrap gap-1.5 mb-7" style={reveal(0.15)}>

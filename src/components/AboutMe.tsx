@@ -61,7 +61,7 @@ export default function AboutMe() {
             </div>
             <div className="flex flex-col justify-between rounded-3xl border border-[var(--line)] bg-[var(--card)] p-5">
               <span className="font-mono text-[11px] tracking-[0.2em] uppercase text-[var(--accent)]">Now</span>
-              <p className="text-[14px] leading-relaxed">正在做一个帮 PM 自动生成评测集的小工具。</p>
+              <p className="text-[14px] leading-relaxed">正在用 Vibe Coding 做个人项目，并把过程写成文章。</p>
             </div>
           </div>
         </Reveal>
