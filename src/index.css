@@ -1,0 +1,158 @@
+@import 'tailwindcss';
+
+:root {
+  --font-heading: 'HelveticaNowDisplay-Medium', 'Helvetica Neue', Arial, 'PingFang SC', 'Noto Sans SC', 'Microsoft YaHei', sans-serif;
+  --font-body: 'HelveticaNowDisplayW01-Rg', 'Helvetica Neue', Arial, 'PingFang SC', 'Noto Sans SC', 'Microsoft YaHei', sans-serif;
+}
+
+/* ------------------------------------------------------------------
+   Editorial palette — quiet, warm, text-first.
+   Drop-in replaceable: edit the values in :root only.
+   ------------------------------------------------------------------ */
+:root {
+  --paper: #faf8f4; /* 背景 · 米白 */
+  --ink: #22201d; /* 主文字 */
+  --ink-muted: #7a756e; /* 次要文字 */
+  --rule: #e7e2da; /* 边框 / 细分隔线 */
+  --rule-strong: #d6cfc4; /* hover 时的边框 */
+  --surface: #f3efe8; /* 卡片底 / 图片占位 */
+  --accent: #8a5a44; /* 强调色 · 暖棕 */
+  --accent-hover: #6f4635; /* 链接 hover */
+  --accent-soft: rgb(138 90 68 / 0.08); /* 小标签底色 */
+  --on-accent: #faf8f4; /* 强调色按钮上的文字 */
+
+  /* Semantic aliases used by components */
+  --bg: var(--paper);
+  --fg: var(--ink);
+  --muted: var(--ink-muted);
+  --line: var(--rule);
+  --line-strong: var(--rule-strong);
+  --card: var(--surface);
+}
+
+@property --bg {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: #faf8f4;
+}
+@property --fg {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: #22201d;
+}
+@property --line {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: #e7e2da;
+}
+
+html {
+  scroll-behavior: smooth;
+  /* Only the nav sits above the hero video, so it fades between the two sets */
+  transition:
+    --bg 0.6s ease,
+    --fg 0.6s ease,
+    --line 0.6s ease;
+}
+
+/* Over the hero video: keep the nav legible on dark footage */
+html[data-theme='hero'] {
+  --bg: #22201d;
+  --fg: #faf8f4;
+  --line: rgb(250 248 244 / 0.16);
+}
+
+/* Force the paper palette locally (sections, loader, dialogs) */
+[data-theme='light'],
+.paper {
+  --bg: var(--paper);
+  --fg: var(--ink);
+  --line: var(--rule);
+}
+
+html,
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+}
+
+::selection {
+  background: rgb(138 90 68 / 0.18);
+  color: var(--ink);
+}
+
+/* Warm, desaturated photo treatment so imagery never fights the text */
+.img-editorial {
+  filter: grayscale(1) sepia(0.14) contrast(0.95) brightness(1.03);
+}
+
+body {
+  font-family: var(--font-body);
+}
+
+@keyframes blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+.cursor-blink {
+  animation: blink 1s step-end infinite;
+}
+
+@keyframes scroll-line {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(100%);
+  }
+}
+
+.scroll-line {
+  animation: scroll-line 1.8s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+}
+
+@keyframes breathe {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.4;
+    transform: scale(0.8);
+  }
+}
+
+.breathe {
+  animation: breathe 2s ease-in-out infinite;
+}
+
+/* Fills the active carousel dot over one autoplay interval */
+@keyframes carousel-progress {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+.carousel-progress {
+  animation-name: carousel-progress;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .carousel-progress {
+    animation: none;
+    transform: scaleX(1);
+  }
+}

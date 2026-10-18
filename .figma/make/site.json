@@ -1,0 +1,10 @@
+{
+  "description": "Interactive full-screen landing page with mouse-controlled video background and dynamic typewriter text designed to engage visitors for a creative agency.",
+  "robots": {
+    "index": false
+  },
+  "accessibility": {
+    "addBypassLinks": false,
+    "ignoreReducedMotion": false
+  }
+}
