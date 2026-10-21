@@ -13,8 +13,19 @@ export default function ScrubVideo({ src }: { src: string }) {
 
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
     const coarse = window.matchMedia('(pointer: coarse)').matches
-    let objectUrl: string | null = null
-    let cancelled = false
+
+    // Show the first frame as soon as metadata is ready — never block paint on a full download
+    const showFirstFrame = () => {
+      try {
+        video.currentTime = 0.001
+      } catch {
+        /* ignore */
+      }
+    }
+    if (video.readyState >= 1) showFirstFrame()
+    else video.addEventListener('loadedmetadata', showFirstFrame, { once: true })
+
+    if (reduceMotion || coarse) return
 
     let targetTime = 0
     let seeking = false
@@ -38,7 +49,7 @@ export default function ScrubVideo({ src }: { src: string }) {
       clearTimeout(watchdog)
       watchdog = setTimeout(() => {
         seeking = false
-      }, 180)
+      }, 160)
     }
 
     const queue = () => {
@@ -69,10 +80,21 @@ export default function ScrubVideo({ src }: { src: string }) {
       queue()
     }
 
+    const enableScrub = () => {
+      ready = true
+    }
+    // Scrub as soon as we can decode a frame; don't wait for full buffer
+    if (video.readyState >= 2) enableScrub()
+    else {
+      video.addEventListener('loadeddata', enableScrub, { once: true })
+      video.addEventListener('canplay', enableScrub, { once: true })
+      setTimeout(enableScrub, 800)
+    }
+
     const io = new IntersectionObserver(
       ([entry]) => {
         active = entry.isIntersecting
-        wrap.style.visibility = entry.isIntersecting ? 'visible' : 'hidden'
+        // Keep the element painted; only pause scrubbing off-screen
         if (!entry.isIntersecting) {
           prevX = null
           if (raf) {
@@ -89,71 +111,12 @@ export default function ScrubVideo({ src }: { src: string }) {
     video.addEventListener('seeked', onSeeked)
     window.addEventListener('pointermove', onMove, { passive: true })
 
-    const enable = () => {
-      if (cancelled || ready) return
-      ready = true
-      video.currentTime = 0
-      wrap.dataset.ready = '1'
-    }
-
-    const boot = async () => {
-      if (reduceMotion || coarse) {
-        video.preload = 'auto'
-        video.src = src
-        const show = () => {
-          video.currentTime = 0
-          ready = false
-        }
-        if (video.readyState >= 1) show()
-        else video.addEventListener('loadedmetadata', show, { once: true })
-        return
-      }
-
-      try {
-        // Fetch the whole clip first so scrubbing never waits on network mid-drag
-        const res = await fetch(src, { cache: 'force-cache' })
-        const blob = await res.blob()
-        if (cancelled) return
-        objectUrl = URL.createObjectURL(blob)
-        video.src = objectUrl
-        video.load()
-        const onMeta = () => {
-          // Touch a mid frame once to warm the decoder, then start at 0
-          const mid = Math.min(0.5, (video.duration || 1) * 0.4)
-          const warm = () => {
-            video.removeEventListener('seeked', warm)
-            video.currentTime = 0
-            const start = () => {
-              video.removeEventListener('seeked', start)
-              enable()
-            }
-            video.addEventListener('seeked', start, { once: true })
-          }
-          video.addEventListener('seeked', warm, { once: true })
-          video.currentTime = mid
-        }
-        if (video.readyState >= 1) onMeta()
-        else video.addEventListener('loadedmetadata', onMeta, { once: true })
-        // Safety: enable even if seek chain stalls
-        setTimeout(enable, 2500)
-      } catch {
-        video.src = src
-        video.load()
-        video.addEventListener('canplaythrough', enable, { once: true })
-        setTimeout(enable, 2000)
-      }
-    }
-
-    boot()
-
     return () => {
-      cancelled = true
       clearTimeout(watchdog)
       if (raf) cancelAnimationFrame(raf)
       io.disconnect()
       video.removeEventListener('seeked', onSeeked)
       window.removeEventListener('pointermove', onMove)
-      if (objectUrl) URL.revokeObjectURL(objectUrl)
     }
   }, [src])
 
@@ -162,9 +125,11 @@ export default function ScrubVideo({ src }: { src: string }) {
       <div className="absolute inset-0" style={{ transform: 'scale(0.86)', transformOrigin: '70% 100%' }}>
         <video
           ref={videoRef}
+          src={src}
           muted
           playsInline
           preload="auto"
+          autoPlay={false}
           disablePictureInPicture
           className="h-full w-full object-cover"
           style={{ objectPosition: '70% center' }}
