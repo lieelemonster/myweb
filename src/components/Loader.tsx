@@ -3,8 +3,8 @@ import { AnimatePresence, motion } from 'motion/react'
 import { PROFILE } from '../data/content'
 import { EASE } from './ui'
 
-const MIN_MS = 700
-const MAX_MS = 1800
+const MIN_MS = 400
+const MAX_MS = 900
 
 /** Full-screen intro. Waits for the hero video (or a timeout), then fades out and calls onDone. */
 export default function Loader({ onDone }: { onDone: () => void }) {
