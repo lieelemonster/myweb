@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react'
 
-const SENSITIVITY = 0.8
+const SENSITIVITY = 0.85
 
 export default function ScrubVideo({ src }: { src: string }) {
   const videoRef = useRef<HTMLVideoElement>(null)
@@ -13,15 +13,12 @@ export default function ScrubVideo({ src }: { src: string }) {
 
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
     const coarse = window.matchMedia('(pointer: coarse)').matches
-    if (reduceMotion || coarse) {
-      // Static first frame on touch / reduced-motion devices — no scrub seeking
-      video.preload = 'metadata'
-      video.currentTime = 0
-      return
-    }
+    let objectUrl: string | null = null
+    let cancelled = false
 
     let targetTime = 0
     let seeking = false
+    let ready = false
     let prevX: number | null = null
     let raf = 0
     let active = true
@@ -29,14 +26,19 @@ export default function ScrubVideo({ src }: { src: string }) {
 
     const flush = () => {
       raf = 0
-      if (!active || seeking) return
-      if (Math.abs(video.currentTime - targetTime) < 0.02) return
+      if (!ready || !active || seeking) return
+      if (Math.abs(video.currentTime - targetTime) < 0.015) return
       seeking = true
-      video.currentTime = targetTime
+      try {
+        video.currentTime = targetTime
+      } catch {
+        seeking = false
+        return
+      }
       clearTimeout(watchdog)
       watchdog = setTimeout(() => {
         seeking = false
-      }, 250)
+      }, 180)
     }
 
     const queue = () => {
@@ -46,11 +48,11 @@ export default function ScrubVideo({ src }: { src: string }) {
     const onSeeked = () => {
       seeking = false
       clearTimeout(watchdog)
-      if (Math.abs(video.currentTime - targetTime) > 0.02) queue()
+      if (Math.abs(video.currentTime - targetTime) > 0.015) queue()
     }
 
     const onMove = (e: PointerEvent) => {
-      if (!active) return
+      if (!ready || !active) return
       const x = e.clientX
       if (prevX === null) {
         prevX = x
@@ -67,7 +69,6 @@ export default function ScrubVideo({ src }: { src: string }) {
       queue()
     }
 
-    // Only scrub / keep video in the layer while the hero is on screen
     const io = new IntersectionObserver(
       ([entry]) => {
         active = entry.isIntersecting
@@ -80,33 +81,87 @@ export default function ScrubVideo({ src }: { src: string }) {
           }
         }
       },
-      { rootMargin: '0px', threshold: 0.05 },
+      { threshold: 0.02 },
     )
     const hero = document.getElementById('top')
     if (hero) io.observe(hero)
-    else active = true
 
     video.addEventListener('seeked', onSeeked)
     window.addEventListener('pointermove', onMove, { passive: true })
 
+    const enable = () => {
+      if (cancelled || ready) return
+      ready = true
+      video.currentTime = 0
+      wrap.dataset.ready = '1'
+    }
+
+    const boot = async () => {
+      if (reduceMotion || coarse) {
+        video.preload = 'auto'
+        video.src = src
+        const show = () => {
+          video.currentTime = 0
+          ready = false
+        }
+        if (video.readyState >= 1) show()
+        else video.addEventListener('loadedmetadata', show, { once: true })
+        return
+      }
+
+      try {
+        // Fetch the whole clip first so scrubbing never waits on network mid-drag
+        const res = await fetch(src, { cache: 'force-cache' })
+        const blob = await res.blob()
+        if (cancelled) return
+        objectUrl = URL.createObjectURL(blob)
+        video.src = objectUrl
+        video.load()
+        const onMeta = () => {
+          // Touch a mid frame once to warm the decoder, then start at 0
+          const mid = Math.min(0.5, (video.duration || 1) * 0.4)
+          const warm = () => {
+            video.removeEventListener('seeked', warm)
+            video.currentTime = 0
+            const start = () => {
+              video.removeEventListener('seeked', start)
+              enable()
+            }
+            video.addEventListener('seeked', start, { once: true })
+          }
+          video.addEventListener('seeked', warm, { once: true })
+          video.currentTime = mid
+        }
+        if (video.readyState >= 1) onMeta()
+        else video.addEventListener('loadedmetadata', onMeta, { once: true })
+        // Safety: enable even if seek chain stalls
+        setTimeout(enable, 2500)
+      } catch {
+        video.src = src
+        video.load()
+        video.addEventListener('canplaythrough', enable, { once: true })
+        setTimeout(enable, 2000)
+      }
+    }
+
+    boot()
+
     return () => {
+      cancelled = true
       clearTimeout(watchdog)
       if (raf) cancelAnimationFrame(raf)
       io.disconnect()
       video.removeEventListener('seeked', onSeeked)
       window.removeEventListener('pointermove', onMove)
+      if (objectUrl) URL.revokeObjectURL(objectUrl)
     }
-  }, [])
+  }, [src])
 
   return (
     <div ref={wrapRef} className="fixed inset-0 z-0 overflow-hidden bg-black" aria-hidden="true">
-      <div
-        className="absolute inset-0"
-        style={{ transform: 'scale(0.86)', transformOrigin: '70% 100%', willChange: 'contents' }}
-      >
+      <div className="absolute inset-0" style={{ transform: 'scale(0.86)', transformOrigin: '70% 100%' }}>
         <video
           ref={videoRef}
-          src={src}
           muted
           playsInline
           preload="auto"

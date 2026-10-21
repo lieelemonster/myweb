@@ -9,7 +9,7 @@ const FOCUS = ['AI 产品落地', '大模型应用', 'Agent 设计', 'Vibe Codin
 const STATS = [
   { value: '3+', label: '年产品经验' },
   { value: '1+', label: '年 AI 产品经验' },
-  { value: '4', label: 'Vibe Coding 项目' },
+  { value: '4+', label: 'Vibe Coding 项目' },
 ]
 
 const pill =
@@ -66,11 +66,7 @@ export default function Hero({ start = true }: { start?: boolean }) {
           {!done && <span className="cursor-blink inline-block w-[2px] h-[1.1em] bg-white align-middle ml-[2px]" />}
         </p>
 
-        <p className="text-white/60 text-[14px] sm:text-[16px] leading-relaxed max-w-md mb-6" style={reveal(0.1)}>
-          计算机科学与技术本科，3 年产品经验，近一年专注 AI 产品。持续关注前沿 AI 技术，在技术可行性和用户价值之间做判断，也习惯用 Vibe Coding 把想法快速做成可交互的原型。
-        </p>
-
-        <ul className="flex flex-wrap gap-1.5 mb-7" style={reveal(0.15)}>
+        <ul className="flex flex-wrap gap-1.5 mb-7" style={reveal(0.1)}>
           {FOCUS.map((f) => (
             <li key={f} className="rounded-full border border-white/30 px-3 py-[0.2em] text-[12px] sm:text-[13px] text-white/80">
               {f}
@@ -78,7 +74,7 @@ export default function Hero({ start = true }: { start?: boolean }) {
           ))}
         </ul>
 
-        <dl className="flex gap-8 sm:gap-10 mb-8" style={reveal(0.2)}>
+        <dl className="flex gap-8 sm:gap-10 mb-8" style={reveal(0.15)}>
           {STATS.map((s) => (
             <div key={s.label}>
               <dt className="sr-only">{s.label}</dt>
@@ -88,8 +84,8 @@ export default function Hero({ start = true }: { start?: boolean }) {
           ))}
         </dl>
 
-        <div className="flex flex-wrap gap-y-1 -mx-[0.2em]" style={reveal(0.25)}>
-          <a href="#lab" className={`${pill} bg-white text-black border border-black/10 hover:bg-black hover:text-white`}>
+        <div className="flex flex-wrap gap-y-1 -mx-[0.2em]" style={reveal(0.2)}>
+          <a href="#work" className={`${pill} bg-white text-black border border-black/10 hover:bg-black hover:text-white`}>
             查看作品
           </a>
           <a href="#writing" className={`${pill} bg-white text-black border border-black/10 hover:bg-black hover:text-white`}>
