@@ -111,6 +111,30 @@ h1.title {
   justify-content: space-between;
   font-size: 14px;
 }
+
+.stage-figure {
+  margin: 1.25em 0 1.6em;
+  border-radius: 14px;
+  overflow: hidden;
+  background: var(--surface);
+  border: 1px solid var(--rule);
+}
+.stage-figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+}
+.stage-label {
+  margin: 0;
+  padding: 8px 14px 10px;
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  color: var(--ink-muted);
+  background: var(--surface);
+  border-top: 1px solid var(--rule);
+}
 </style>
 </head>
 <body>
@@ -122,12 +146,19 @@ h1.title {
     </div>
     <h1 class="title">客服机器人答非所问，用户为什么宁愿等人工？我做「多客AI」的一次复盘</h1>
     <div class="article">
+<!-- stage-outline -->
+<p><em>本文按阶段展开：场景痛点 → 行业现状 → 找痛点 → 方案（LLM+RAG）→ 准确率迭代 → 两段经历 → 方法论。</em></p>
+
 <h2>一、先说一个让我愣住的场景</h2>
+<figure class="stage-figure"><img src="../covers/stages/dk-scene.jpg" alt="客服场景与现场痛点" loading="lazy" decoding="async" width="720" height="405" /><figcaption class="stage-label">一、场景痛点</figcaption></figure>
+
 <p>2025年8月我入职深圳美云集，接手的项目是「多客AI」，给在多个平台开店的跨境电商卖家做AI客服。入职第二周，我坐在一位卖家的客服旁边看她干活。买家问：&quot;我上周买的那件外套，尺码偏小，能换大一号吗？运费谁出？&quot;</p>
 <p>系统里已有的智能回复弹了出来，内容是一段通用的&quot;退换货政策说明&quot;，把所有平台的规则混在一起，连这个店铺是否支持免费换货都没提。客服看了一眼，叹口气，把建议删掉，自己手打了一遍。</p>
 <p>我问她：这个功能你平时用吗？她说：&quot;一开始用，后来发现十条里有三四条要改，改的时间比自己写还长，就不看了。&quot;</p>
 <p>这句话后来成了整个项目的起点。AI客服最怕的不是&quot;没有&quot;，而是&quot;有，但没人敢用&quot;。</p>
 <h2>二、行业现状：需求很大，用户却不满意</h2>
+<figure class="stage-figure"><img src="../covers/stages/dk-industry.jpg" alt="行业现状与用户满意度" loading="lazy" decoding="async" width="720" height="405" /><figcaption class="stage-label">二、行业现状</figcaption></figure>
+
 <p>先交代一下大环境，避免空谈。</p>
 <p>艾瑞咨询等机构近年的报告里，反复把&quot;智能客服&quot;列为企业服务中较成熟的AI应用方向。生成式AI出来之后，国内外厂商都在把客服做成大模型产品。我能确认的公开信息有这几条：</p>
 <ol>
@@ -138,6 +169,8 @@ h1.title {
 <p>我需要强调：我没有拿到行业统一的&quot;AI客服准确率&quot;权威数据，所以文章里不引用任何行业平均准确率。后文所有准确率数字，只来自我们自己项目的内部测试。</p>
 <p>这些背景告诉我两件事：第一，不缺功能，缺的是&quot;说得对&quot;；第二，说错的代价不是用户体验差一点，而是可能真的要赔钱、要丢订单。</p>
 <h2>三、怎么找到&quot;回复不准&quot;这个真痛点</h2>
+<figure class="stage-figure"><img src="../covers/stages/dk-painpoint.jpg" alt="定位真痛点的调研" loading="lazy" decoding="async" width="720" height="405" /><figcaption class="stage-label">三、找痛点</figcaption></figure>
+
 <h3>1. 竞品分析：先看别人把什么做满了</h3>
 <p>我把快牛、智齿这些竞品的功能清单拉成一张表，按&quot;接入平台、机器人类型、知识库管理、转人工、数据报表&quot;逐项比较。看完的感受是：功能项基本都有，差异不在&quot;有没有&quot;，而在&quot;好不好用&quot;。</p>
 <p>光看官网和演示是看不出好不好用的。所以我做了第二件事：把竞品的试用版实际登录，拿真实的卖家问题去问，比如尺码、物流时效、关税、退款规则这些高频问题，记录每条回答是否能直接发给买家。</p>
@@ -160,6 +193,8 @@ h1.title {
 </ul>
 <p>三条都满足，才值得投入。</p>
 <h2>四、方案选择：大模型 + RAG + 多轮上下文，各管什么</h2>
+<figure class="stage-figure"><img src="../covers/stages/dk-rag.jpg" alt="大模型与 RAG 技术方案" loading="lazy" decoding="async" width="720" height="405" /><figcaption class="stage-label">四、方案：LLM + RAG</figcaption></figure>
+
 <p>这一节我尽量用业务人员能听懂的话说。</p>
 <h3>大语言模型：会&quot;说话&quot;的新员工</h3>
 <p>大模型像一个读过很多书、表达流畅的新员工。它能听懂买家各种说法，比如&quot;能不能换大一码&quot;&quot;size 不合适&quot;，并写出通顺的回复。</p>
@@ -180,6 +215,8 @@ h1.title {
 <h3>为什么不是别的方案</h3>
 <p>我们也考虑过纯规则机器人和纯关键词匹配。它们稳，但买家的问法千变万化，维护规则的人力很快撑不住。选这套组合，是因为它既能应对灵活问法，又能把答案约束在卖家自己的资料里。</p>
 <h2>五、准确率从65%到约90%：验收标准怎么定，怎么迭代</h2>
+<figure class="stage-figure"><img src="../covers/stages/dk-iterate.jpg" alt="准确率迭代与数据看板" loading="lazy" decoding="async" width="720" height="405" /><figcaption class="stage-label">五、准确率迭代</figcaption></figure>
+
 <p>这是整个项目最考验产品经理的部分。先给结果：AI回复准确率从65%提升到约90%，人力成本降低约40%。下面讲过程。</p>
 <h3>1. 先定义&quot;什么算准确&quot;</h3>
 <p>&quot;准确&quot;如果没有定义，团队会各说各话。我在PRD里把它拆成可判定的标准：</p>
@@ -204,10 +241,14 @@ h1.title {
 <h3>4. 上线后继续迭代</h3>
 <p>上线不是终点。我们把客服&quot;采纳、修改、删除&quot;AI建议的行为作为反馈，修改和删除多的问题，回流到测试集里。我之前在卡谷做ERP时形成的习惯在这里用上了：数据对不上的单子，必须追到源头，不能只看总数。</p>
 <h2>六、我的两段经历，怎么互相帮忙</h2>
+<figure class="stage-figure"><img src="../covers/stages/dk-two-careers.jpg" alt="两段经历互相支撑" loading="lazy" decoding="async" width="720" height="405" /><figcaption class="stage-label">六、两段经历</figcaption></figure>
+
 <p><strong>ERP经历教会我&quot;流程要对得上数据&quot;。</strong> 在上海卡谷电子商务（2023.04–2025.06），我从0到1做Caguuu ERP，连接Shopline、斑马ERP、轶仓WMS的数据，例如订单状态变化会触发库存预占、扣减与释放。最终库存准确率达到99%以上，库存不同步导致的异常单减少约40%，仓库小程序扫码替代纸质单据后，单件处理时间缩短约30%。这段经历让我对&quot;准确&quot;这件事有近乎偏执的要求，也是我后来坚持把准确率拆成可验收指标的原因。</p>
 <p><strong>ChatGPT和AI工具的使用经验，帮我判断&quot;能做什么、不能做什么&quot;。</strong> 我很早就在用刚火起来的ChatGPT，后来公司强调用AI提效，我在日常工作中也开始用AI辅助写文档、梳理逻辑。这让我转型AI产品经理时，没有把大模型当魔法，而是当成一个需要约束和验收的员工。</p>
 <p><strong>Vibe Coding缩短了验证周期。</strong> 我能快速把想法做成可交互原型，让用户直接上手看，而不是对着文档想象。很多问题，在原型阶段就能暴露。</p>
 <h2>七、给你的方法论：从找场景到上线迭代，7步走</h2>
+<figure class="stage-figure"><img src="../covers/stages/dk-method.jpg" alt="从场景到上线的方法论" loading="lazy" decoding="async" width="720" height="405" /><figcaption class="stage-label">七、方法论</figcaption></figure>
+
 <p>如果你也想做一个AI产品，不妨按这个顺序，读完就可以开始第一步：</p>
 <p><strong>第一步：找一个具体场景，不要从技术出发。</strong> 写下&quot;谁，在什么时候，做什么事，卡在哪&quot;。例如&quot;跨境卖家的客服，在回复买家退换货问题时，答错要兜底&quot;。</p>
 <p><strong>第二步：做竞品体验，不只看功能表。</strong> 至少拿20个真实问题去试用竞品，记录哪些答案能直接用，哪些不能。</p>

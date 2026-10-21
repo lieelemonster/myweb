@@ -111,6 +111,30 @@ h1.title {
   justify-content: space-between;
   font-size: 14px;
 }
+
+.stage-figure {
+  margin: 1.25em 0 1.6em;
+  border-radius: 14px;
+  overflow: hidden;
+  background: var(--surface);
+  border: 1px solid var(--rule);
+}
+.stage-figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+}
+.stage-label {
+  margin: 0;
+  padding: 8px 14px 10px;
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  color: var(--ink-muted);
+  background: var(--surface);
+  border-top: 1px solid var(--rule);
+}
 </style>
 </head>
 <body>
@@ -122,8 +146,13 @@ h1.title {
     </div>
     <h1 class="title">从ChatGPT早期用户到AI产品经理：一个传统PM的转型复盘</h1>
     <div class="article">
+<!-- stage-outline -->
+<p><em>本文按阶段展开：开始用 ChatGPT → 效率工具 → 公司提效 → 行业背景 → 美云集工作 → 认知转变 → 转型路径。</em></p>
+
 <p>我今年26岁，计算机专业本科毕业，做了两年传统产品经理，又做了一年多AI产品经理。这篇文章讲我为什么转、怎么转、转的时候卡在哪，最后给一套可以照着走的步骤。我没有什么惊人的经历，所以写得具体一点，希望对正在犹豫的同行有用。</p>
 <h2>一、我是怎么开始用ChatGPT的</h2>
+<figure class="stage-figure"><img src="../covers/stages/cg-early-chatgpt.jpg" alt="早期接触 ChatGPT 与大模型" loading="lazy" decoding="async" width="720" height="405" /><figcaption class="stage-label">一、开始用 ChatGPT</figcaption></figure>
+
 <p>ChatGPT在2022年11月底发布。2023年2月，路透社援引瑞银（UBS）基于Similarweb数据的研究报道，称它上线约两个月月活就达到1亿，是当时增长最快的消费级应用之一。那段时间朋友圈里全是截图，有人让它写诗，有人让它写代码，也有人让它模仿领导讲话。</p>
 <p>我是比较早上手的那批人。我2023年4月入职上海卡谷电子商务，前后脚就在用它了。最开始我也是拿它玩，后来很快发现，自己真正在意的是三件事：</p>
 <ol>
@@ -133,6 +162,8 @@ h1.title {
 </ol>
 <p>当时我对它的判断是：它不是搜索引擎的替代品，更像一个反应很快、读过很多东西、但不对结果负责的实习生。你得把任务讲清楚，也得自己检查它交上来的东西。这个判断后来一直没变，甚至成了我做AI产品时最基本的出发点。</p>
 <h2>二、传统PM的日常里，AI先帮我做了什么</h2>
+<figure class="stage-figure"><img src="../covers/stages/cg-efficiency.jpg" alt="AI 作为效率工具" loading="lazy" decoding="async" width="720" height="405" /><figcaption class="stage-label">二、效率工具</figcaption></figure>
+
 <p>在卡谷，我的主要工作是从0到1搭建自研的Caguuu ERP，包括Web后台和仓库用的小程序，要和Shopline、斑马ERP、轶仓WMS这几个系统的数据对接，覆盖商品、订单、采购、仓储几块业务。</p>
 <p>这类工作文档量很大，逻辑也很绕。举个具体的例子：订单状态一变，库存就要跟着动，先预占，发货后扣减，取消或退回时释放。这几个动作牵涉三四个系统，哪个系统的状态是准的、冲突了听谁的，都要写清楚，开发才不会理解错。</p>
 <p>我日常用AI做的事情很朴素：</p>
@@ -144,11 +175,15 @@ h1.title {
 <p>这些用法没有一个是高深的，但它让我养成了一个习惯：遇到任何文字和逻辑类的工作，先想一下AI能不能先做一版。</p>
 <p>这个项目最后的结果是：库存准确率达到99%以上，库存不同步导致的异常单减少约40%；仓库小程序用扫码代替纸质单据，单件处理时间缩短约30%。我提这些数字，是想说明我当时是一个正经做业务系统的传统PM，不是一个提前押注AI的人。转型不是我一开始的规划。</p>
 <h2>三、公司推AI提效，为什么成了转型的契机</h2>
+<figure class="stage-figure"><img src="../covers/stages/cg-company-ai.jpg" alt="公司推动 AI 提效协作" loading="lazy" decoding="async" width="720" height="405" /><figcaption class="stage-label">三、公司提效</figcaption></figure>
+
 <p>后来公司开始强调用AI提效。这件事对我有两层影响。</p>
 <p>第一层很现实：当公司把“用AI”当成一个明确要求，早就在用的人就有了先发优势。别人还在适应的时候，我已经知道哪些场景好用、哪些场景会翻车，自然会被同事问，也会被领导注意到。</p>
 <p>第二层是认知上的：我在内部推广的过程中发现，大家用AI的最大问题不是不会用工具，而是不知道什么任务适合交给它。同一个模型，有人用着很惊艳，有人用着很失望，差别在于任务拆得对不对、验收标准有没有。这恰好就是产品经理擅长的事。</p>
 <p>我开始意识到，这类问题本身就是一个产品岗位：把不确定的模型能力，变成稳定、可验收的业务功能。于是我决定把重心从ERP这类确定性系统，转向以大模型为核心的产品。</p>
 <h2>四、行业层面的真实背景</h2>
+<figure class="stage-figure"><img src="../covers/stages/cg-industry.jpg" alt="行业与商业背景" loading="lazy" decoding="async" width="720" height="405" /><figcaption class="stage-label">四、行业背景</figcaption></figure>
+
 <p>我不想靠情绪判断行业，这里只列我能查到来源的信息。</p>
 <p><strong>企业使用AI在快速增加。</strong> 斯坦福大学《2025年人工智能指数报告》（Stanford HAI，2025年4月）引用麦肯锡的调查，称2024年有78%的受访组织表示在使用AI，2023年这个比例是55%。</p>
 <p><strong>职场人已经在日常使用。</strong> 微软与领英联合发布的《2024年工作趋势指数》（2024年5月）显示，75%的知识型工作者在工作中使用生成式AI。</p>
@@ -156,6 +191,8 @@ h1.title {
 <p><strong>国内政策层面也有明确方向。</strong> 《生成式人工智能服务管理暂行办法》自2023年8月15日起施行，对做面向公众的生成式AI服务提出了合规要求；2025年8月，国务院发布《关于深入实施“人工智能+”行动的意见》，提出推动AI与各行业结合。</p>
 <p>这些数据说明了什么，我的判断是：对产品经理来说，需求端的变化是真实的，企业需要有人把AI用到具体业务里。但我没有找到可靠的、公开的“AI产品经理岗位数量”权威统计，所以不在这里给具体数字。你如果想判断岗位机会，最直接的办法是自己去招聘平台，按城市和行业搜一下岗位描述，看它们实际要求什么能力，这比任何二手数据都可靠。</p>
 <h2>五、我在美云集做了什么</h2>
+<figure class="stage-figure"><img src="../covers/stages/cg-meiyunji.jpg" alt="美云集 AI 客服相关工作" loading="lazy" decoding="async" width="720" height="405" /><figcaption class="stage-label">五、美云集工作</figcaption></figure>
+
 <p>2025年8月，我加入深圳美云集网络科技，做AI产品经理，负责「多客AI」，面向多平台跨境电商卖家的AI客服系统。</p>
 <p><strong>先看竞品，再问用户。</strong> 我分析了快牛、智齿（Sobot）等竞品，也深度访谈了核心用户。访谈下来最集中的抱怨是：智能回复不准确。卖家并不是不想用AI客服，而是不敢放手，因为答错了要自己背锅。</p>
 <p><strong>方案不复杂。</strong> 大语言模型负责理解和生成，RAG知识库检索负责让回答有依据，多轮对话上下文负责让客服记得前面聊了什么。RAG这个思路来自Meta（当时的Facebook AI Research）2020年发表的论文《Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks》，核心是回答前先去查资料，而不是只靠模型记忆。</p>
@@ -163,6 +200,8 @@ h1.title {
 <p>最后AI回复准确率从65%提升到约90%，人力成本降低约40%。</p>
 <p>另外，我熟练使用Vibe Coding，也就是用自然语言驱动AI写代码。有了新想法，我会先做成能点的原型，给用户或同事看，再决定要不要排期。这缩短了需求验证的周期，比反复讲PRD直观得多。</p>
 <h2>六、转型中最难的认知转变</h2>
+<figure class="stage-figure"><img src="../covers/stages/cg-mindset.jpg" alt="认知与思维转变" loading="lazy" decoding="async" width="720" height="405" /><figcaption class="stage-label">六、认知转变</figcaption></figure>
+
 <p>我觉得最难的有三个，没有一个跟技术有关。</p>
 <p><strong>1. 接受结果不是100%确定的。</strong>
 做ERP时，一个订单状态变化，库存要么扣了要么没扣，对错清楚。做AI客服时，同一个问题问两遍，回答可能不一样。你必须习惯用“准确率”这种概率性的指标，而不是“功能通过”。</p>
@@ -171,6 +210,8 @@ h1.title {
 <p><strong>3. 从“做功能”变成“持续调效果”。</strong>
 上线不是终点。回复不准的原因可能是知识库缺内容、检索没找对、对话上下文被截断，要逐个排查。这很像运营，也很像调试，需要耐心。</p>
 <h2>七、给想转型的传统PM：一套分步骤的路径</h2>
+<figure class="stage-figure"><img src="../covers/stages/cg-path.jpg" alt="转型路径与行动清单" loading="lazy" decoding="async" width="720" height="405" /><figcaption class="stage-label">七、转型路径</figcaption></figure>
+
 <p>下面是我自己走过的路，加上我对它的整理。</p>
 <p><strong>第一步：先把AI用进你现在的工作（1—2个月）。</strong>
 不要先报班。选三个你每周都在做的任务，比如写PRD初稿、梳理流程、整理会议纪要，坚持用AI做一版，再自己修改。同时记录两件事：它在哪些地方帮到了你，在哪些地方出了错。这份记录就是你理解模型能力边界的第一手材料。</p>

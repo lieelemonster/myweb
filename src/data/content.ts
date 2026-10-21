@@ -112,7 +112,7 @@ export const ARTICLES: Article[] = [
     title: '跨境 ERP 从 0 到 1 复盘：一个传统 PM 的四个阶段和三个 AI 用法',
     excerpt: '三套系统各说各话，仓库靠表格拼业务。一个传统PM如何把跨境ERP从0做到1，以及AI真正帮上忙、帮不上忙的地方。',
     date: '2026.10.18',
-    cover: img('photo-1696838163915-3649669f300f'),
+    cover: 'covers/erp.jpg',
     href: 'articles/caguuu-erp-0to1.html',
   },
 {
@@ -120,7 +120,7 @@ export const ARTICLES: Article[] = [
     title: '从ChatGPT早期用户到AI产品经理：一个传统PM的转型复盘',
     excerpt: '我今年26岁，做了两年传统产品经理，又做了一年多AI产品经理。这篇文章讲为什么转、怎么转、转的时候卡在哪，以及一套可照着走的步骤。',
     date: '2026.10.18',
-    cover: img('photo-1678366633407-7f49da199a42'),
+    cover: 'covers/chatgpt.jpg',
     href: 'articles/chatgpt-to-ai-pm.html',
   },
 {
@@ -128,7 +128,7 @@ export const ARTICLES: Article[] = [
     title: '从ERP到AI客服：我这两年看到的产品经理能力变化',
     excerpt: '从 Caguuu ERP 到「多客AI」，两年两段产品经历。聊聊传统PM和AI产品经理在能力边界、工作方式上的真实变化。',
     date: '2026.10.18',
-    cover: img('photo-1654198340681-a2e0fc449f1b'),
+    cover: 'covers/skills.jpg',
     href: 'articles/erp-to-ai-pm.html',
   },
 {
@@ -136,7 +136,7 @@ export const ARTICLES: Article[] = [
     title: '客服机器人答非所问，用户为什么宁愿等人工？我做「多客AI」的一次复盘',
     excerpt: '客服机器人答非所问，用户宁愿等人工。复盘「多客AI」：跨境电商卖家真正需要什么样的AI客服，以及我们怎么改才见效。',
     date: '2026.10.18',
-    cover: img('photo-1655841439659-0afc60676b70'),
+    cover: 'covers/cs.jpg',
     href: 'articles/duoke-ai-review.html',
   },
 ]
@@ -155,31 +155,4 @@ export const ABOUT = {
     { year: '2025', title: 'AI 产品经理 · 深圳美云集网络科技有限责任公司', tags: ['LLM', 'RAG'] },
   ],
   photos: [img('photo-1499750310107-5fef28a66643'), img('photo-1783663911692-130a88e6ccc3')],
-}
-
-export const ASK_AI = {
-  suggestions: ['你是做什么的？', '最有代表性的项目？', '你怎么看 AI 产品？', '怎么联系你？'],
-  answers: [
-    {
-      keys: ['做什么', '是谁', '介绍', '经历', '背景'],
-      text: '我是金超，一名 AI 产品经理，计算机科学与技术本科。2023 年开始做产品经理，2025 年起专注 AI 产品。平时也用 Vibe Coding 把想法快速做成可交互的原型。',
-    },
-    {
-      keys: ['项目', '作品', '代表', 'demo'],
-      text: '网站上收录了 4 个个人项目：AI 购买助手、AI 生态日报、智能客服和 AI 作曲。往上翻到 01 / SELECTED WORK 可以看到详情和链接。',
-    },
-    {
-      keys: ['看法', '观点', '怎么看', '理念', 'ai 产品'],
-      text: '我做产品最看重三件事：用户、场景、问题。先搞清楚是谁、在什么场景下遇到什么问题，再谈方案和工具。',
-    },
-    {
-      keys: ['联系', '邮箱', '微信', '合作', '招聘'],
-      text: `欢迎来聊！邮箱是 ${'jinchao@patrickstarai.com'}，页面最底部也有其他联系方式。`,
-    },
-    {
-      keys: ['工具', '技术栈', 'cursor', 'claude'],
-      text: '日常主力是 Claude Code、Cursor 和 DeepSeek，设计用 Figma，快速出界面会用 v0。02 / IN PRACTICE 里的工具箱可以拖着玩。',
-    },
-  ],
-  fallback: '这个问题我还没准备好答案 :) 你可以问问我的经历、项目、对 AI 产品的看法，或者直接发邮件聊。',
 }

@@ -111,6 +111,30 @@ h1.title {
   justify-content: space-between;
   font-size: 14px;
 }
+
+.stage-figure {
+  margin: 1.25em 0 1.6em;
+  border-radius: 14px;
+  overflow: hidden;
+  background: var(--surface);
+  border: 1px solid var(--rule);
+}
+.stage-figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+}
+.stage-label {
+  margin: 0;
+  padding: 8px 14px 10px;
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  color: var(--ink-muted);
+  background: var(--surface);
+  border-top: 1px solid var(--rule);
+}
 </style>
 </head>
 <body>
@@ -125,6 +149,9 @@ h1.title {
 <blockquote>
 <p>三套系统各说各话，仓库里的人靠表格和记忆把它们拼在一起。这篇复盘讲的是一个传统产品经理怎么从一线摸底开始，把一套跨境电商业务管理系统从 0 做到 1，以及 AI 在哪些环节真正帮上了忙、在哪些环节帮不上。</p>
 </blockquote>
+<!-- stage-outline -->
+<p><em>本文按阶段展开：背景 → 调研 → 方案 → 文档 → 落地 → AI 用法 → 方法论。</em></p>
+
 <p>如果把一家跨境电商公司比作一座城市，订单、采购、库存就是三条主干道。我们刚开始接手的时候，这三条路都修好了，路面也不差，唯独没有红绿灯，也没有路口。每辆车都能在自己的路上跑得很快，可一到要换道的地方，只能靠人下车，扛着货走过去。</p>
 <p>这个“扛着货走过去”的人，就是公司里的运营、采购和仓管。他们每天在几套系统之间来回切换，把一个系统里的数字抄进 Excel，再从 Excel 抄进另一个系统。抄错一位数，就可能是一单超卖，或者一个包裹漏发到海外。</p>
 <p>这两年行业里有一个很流行的问题：AI 都能写 PRD、画原型了，产品经理还剩下什么？我想反过来问一句：如果连三个系统之间的路口该怎么修都没想清楚，AI 帮你画得再快，画出来的又是什么？</p>
@@ -132,6 +159,8 @@ h1.title {
 <p>先把结论放在前面：AI 让很多活变快了，但从 0 到 1 最难的几件事，想清楚做什么、把规则想严密、让一线真的用起来，依然要靠产品经理的基本功。工具越强，基本功的差距反而越明显。</p>
 <hr />
 <h2>一、背景：三套系统，每套都只管一段</h2>
+<figure class="stage-figure"><img src="../covers/stages/erp-bg-systems.jpg" alt="割裂的业务系统与数据拼凑" loading="lazy" decoding="async" width="720" height="405" /><figcaption class="stage-label">背景：三套系统</figcaption></figure>
+
 <p>先交代清楚我们面对的是什么局面。</p>
 <p>公司做跨境电商，业务上有三套现成的系统：</p>
 <ul>
@@ -144,6 +173,8 @@ h1.title {
 <p>这就是这个项目的起点。不是“我们想做一个 ERP”，而是“现有的工具在几个关键的地方断开了，断开的部分全靠人在补”。</p>
 <hr />
 <h2>二、阶段一：调研和规划——答案不在会议室，在一线的表格里</h2>
+<figure class="stage-figure"><img src="../covers/stages/erp-s1-warehouse.jpg" alt="仓库一线调研与观察" loading="lazy" decoding="async" width="720" height="405" /><figcaption class="stage-label">阶段一：调研</figcaption></figure>
+
 <h3>1. 不要只听汇报，去看他们每天在用什么</h3>
 <p>做 B 端产品，最容易犯的一个错误，是在会议室里收集需求。各部门负责人讲的是他们理解的问题，往往是经过总结、提炼之后的版本，听起来很清楚，但离真实的操作很远。</p>
 <p>我做的第一件事，是走到运营、采购和仓库一线，坐在他们旁边看。我重点看三样东西：</p>
@@ -171,6 +202,8 @@ h1.title {
 <p><strong>我的判断：</strong> 从 0 到 1 的项目，最贵的错误不是做错一个功能，而是一开始就没想清楚为什么要做、先做什么。这一阶段花的时间，会在后面每一个阶段省回来。</p>
 <hr />
 <h2>三、阶段二：方案设计——B 端的难度，藏在状态和规则里</h2>
+<figure class="stage-figure"><img src="../covers/stages/erp-s2-whiteboard.jpg" alt="白板与流程方案设计" loading="lazy" decoding="async" width="720" height="405" /><figcaption class="stage-label">阶段二：方案</figcaption></figure>
+
 <p>很多人对 B 端产品的印象是“页面丑一点没关系，能用就行”。这句话只说对了一半。页面确实不是重点，但“能用”的标准，比大多数人想的严格得多。B 端产品真正的难度，在于底层的状态流转和跨系统的数据规则是不是严密。</p>
 <p>这个项目里，方案设计最核心的是两件事。</p>
 <h3>1. 跨系统的库存联动：每一个状态变化，都要有对应的库存动作</h3>
@@ -193,6 +226,8 @@ h1.title {
 <p><strong>我的判断：</strong> 方案设计的难点不在“想到”，而在“想全”。正常流程谁都能画，区分方案好坏的，是你对异常分支考虑了多少。</p>
 <hr />
 <h2>四、阶段三：内容输出——文档的目的是让三方理解一致</h2>
+<figure class="stage-figure"><img src="../covers/stages/erp-s3-docs.jpg" alt="文档协作与需求对齐" loading="lazy" decoding="async" width="720" height="405" /><figcaption class="stage-label">阶段三：文档</figcaption></figure>
+
 <p>到了输出阶段，很多产品经理会把重心放在“写得多、写得全”。我的体会是，文档的价值不在于篇幅，而在于它能不能让研发、测试和业务对同一件事有同样的理解。</p>
 <h3>1. 三件套，各自解决一个问题</h3>
 <p>这个项目我输出的核心内容是三样：</p>
@@ -210,6 +245,8 @@ h1.title {
 <p><strong>我的判断：</strong> 跨系统项目里，最容易出事的往往不是复杂的功能，而是一个字段在两个系统里的理解不一样。评审会真正要对齐的，就是这些细节。</p>
 <hr />
 <h2>五、阶段四：推进落地——开发完成，只算做完了一半</h2>
+<figure class="stage-figure"><img src="../covers/stages/erp-s4-training.jpg" alt="培训与上线落地" loading="lazy" decoding="async" width="720" height="405" /><figcaption class="stage-label">阶段四：落地</figcaption></figure>
+
 <h3>1. 联调期，产品经理要能拍板</h3>
 <p>跨系统的项目，最容易在联调期出问题，最常见的是两类：</p>
 <ul>
@@ -228,6 +265,8 @@ h1.title {
 <p><strong>我的判断：</strong> B 端产品的成败，最终是在一线的使用里决定的，而不是在上线发布会上。</p>
 <hr />
 <h2>六、三个 AI 用法：把 AI 放进具体的工作环节里</h2>
+<figure class="stage-figure"><img src="../covers/stages/erp-ai-laptop.jpg" alt="笔记本与 AI 辅助工作" loading="lazy" decoding="async" width="720" height="405" /><figcaption class="stage-label">AI 用法</figcaption></figure>
+
 <p>讲完四个阶段，再来说 AI。</p>
 <p>传统产品经理用 AI，并不一定要去训练模型，或者转行做 AI 产品。把 AI 放进自己每天的具体工作环节里，让它承担其中耗时、重复、容易遗漏的部分，就已经很有价值。这个项目里，我主要用了三种方式。</p>
 <h3>用法一：推演复杂逻辑，找出人想不到的异常</h3>
@@ -274,6 +313,8 @@ h1.title {
 </ul>
 <hr />
 <h2>八、方法论：你可以怎么用这套做法</h2>
+<figure class="stage-figure"><img src="../covers/stages/erp-method.jpg" alt="方法论整理与复盘" loading="lazy" decoding="async" width="720" height="405" /><figcaption class="stage-label">方法论</figcaption></figure>
+
 <p>最后，把整个复盘整理成一套可以直接照着做的方法。不管你是在做 ERP、CRM，还是其他内部系统，下面这些步骤都可以用。</p>
 <h3>第一步：用一周时间，做一次一线观察</h3>
 <p>不要先开需求会。找到会用这个系统的每一类岗位，各跟一个人看半天到一天，记下三张清单：</p>

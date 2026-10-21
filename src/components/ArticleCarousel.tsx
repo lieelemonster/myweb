@@ -21,6 +21,26 @@ const N = ARTICLES.length
 /** Wait two frames so a no-transition jump is painted before transitions are re-enabled. */
 const nextFrame = (fn: () => void) => requestAnimationFrame(() => requestAnimationFrame(fn))
 
+function cardStyle(offset: number, perView: number): React.CSSProperties {
+  // offset: -1 left, 0 center, +1 right (relative to the focused card)
+  if (perView === 1 || Math.abs(offset) > 1.5) {
+    return { transform: 'rotateY(0deg) scale(1)', opacity: 1 }
+  }
+  if (offset === 0) {
+    return {
+      transform: 'rotateY(0deg) scale(1.02)',
+      opacity: 1,
+      boxShadow: '0 18px 40px rgba(0,0,0,0.08)',
+    }
+  }
+  // Left cards face right; right cards face left — coverflow side view
+  const yaw = offset < 0 ? 38 : -38
+  return {
+    transform: `rotateY(${yaw}deg) scale(0.88)`,
+    opacity: 0.78,
+  }
+}
+
 export default function ArticleCarousel() {
   const perView = usePerView()
   // Clone the first `perView` cards onto the end so sliding past the last card loops seamlessly
@@ -53,7 +73,6 @@ export default function ArticleCarousel() {
 
   const next = useCallback(() => {
     if (indexRef.current >= N) {
-      // Still parked on the clone (e.g. transitionend was missed): snap home, then advance
       setAnimate(false)
       setIndex(0)
       nextFrame(() => {
@@ -68,7 +87,6 @@ export default function ArticleCarousel() {
 
   const prev = useCallback(() => {
     if (indexRef.current <= 0) {
-      // Jump to the clone without animation, then slide back one
       setAnimate(false)
       setIndex(N)
       nextFrame(() => {
@@ -86,14 +104,12 @@ export default function ArticleCarousel() {
     setIndex(i)
   }
 
-  // Autoplay: one step right-to-left every 3s; restarts after any manual move
   useEffect(() => {
     if (paused) return
     const t = setTimeout(next, INTERVAL)
     return () => clearTimeout(t)
   }, [index, paused, next])
 
-  // Re-enable transitions after a silent jump
   useEffect(() => {
     if (animate) return
     nextFrame(() => setAnimate(true))
@@ -108,6 +124,8 @@ export default function ArticleCarousel() {
   }
 
   const active = index % N
+  // Focused card is the center of the visible window
+  const focus = index + Math.floor((perView - 1) / 2)
 
   const arrowBtn =
     'flex h-11 w-11 items-center justify-center rounded-full border border-[var(--line-strong)] transition-colors duration-200 hover:border-[var(--accent)] hover:text-[var(--accent)]'
@@ -132,7 +150,7 @@ export default function ArticleCarousel() {
       <Reveal delay={0.12} className="mt-14 md:mt-20">
         <div
           ref={viewportRef}
-          className="overflow-hidden -mx-2.5 py-2"
+          className="overflow-x-clip overflow-y-visible -mx-2.5 py-8 md:py-10"
           aria-roledescription="carousel"
           onMouseEnter={() => setHovered(true)}
           onMouseLeave={() => setHovered(false)}
@@ -151,35 +169,57 @@ export default function ArticleCarousel() {
             style={{ transform: `translateX(-${(index * 100) / perView}%)` }}
             onTransitionEnd={onTransitionEnd}
           >
-            {slides.map((a, k) => (
-              <article
-                key={`${a.title}-${k}`}
-                className="shrink-0 px-2.5"
-                style={{ width: `${100 / perView}%` }}
-                aria-hidden={k >= N || undefined}
-              >
-                <a
-                  href={a.href}
-                  tabIndex={k >= N ? -1 : undefined}
-                  className="group flex h-full flex-col rounded-3xl border border-[var(--line)] bg-[var(--card)] p-3 transition-[transform,border-color] duration-500 hover:-translate-y-1 hover:border-[var(--line-strong)]"
+            {slides.map((a, k) => {
+              const offset = k - focus
+              const style = cardStyle(offset, perView)
+              return (
+                <article
+                  key={`${a.title}-${k}`}
+                  className="shrink-0 px-2.5"
+                  style={{
+                    width: `${100 / perView}%`,
+                    perspective: perView > 1 ? 900 : undefined,
+                  }}
+                  aria-hidden={k >= N || undefined}
                 >
-                  <div className="aspect-[16/10] overflow-hidden rounded-[18px] bg-[var(--surface)]">
-                    <img src={a.cover} alt="" loading="lazy" className="img-editorial h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.02]" />
-                  </div>
-                  <div className="flex flex-1 flex-col px-3 pt-5 pb-3">
-                    <div className="flex items-center justify-between">
-                      <span className="inline-flex items-center rounded-full bg-[var(--accent-soft)] px-3 py-1 text-xs text-[var(--accent)]">{a.category}</span>
-                      <span className="font-mono text-xs tracking-[0.1em] text-[var(--muted)]">{a.date}</span>
+                  <a
+                    href={a.href}
+                    tabIndex={k >= N ? -1 : undefined}
+                    className="group flex h-full flex-col rounded-3xl border border-[var(--line)] bg-[var(--card)] p-3 transition-[transform,border-color,opacity,box-shadow] duration-500 hover:border-[var(--line-strong)]"
+                    style={{
+                      ...style,
+                      transformOrigin: offset < 0 ? 'right center' : offset > 0 ? 'left center' : 'center',
+                      willChange: 'transform',
+                    }}
+                  >
+                    <div className="aspect-[16/10] overflow-hidden rounded-[18px] bg-[var(--surface)]">
+                      <img
+                        src={a.cover}
+                        alt=""
+                        loading="lazy"
+                        decoding="async"
+                        width={640}
+                        height={400}
+                        className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
+                      />
                     </div>
-                    <div className="mt-5 flex items-start justify-between gap-4">
-                      <h3 className="text-[19px] md:text-xl leading-snug tracking-tight">{a.title}</h3>
-                      <Arrow className="mt-1 text-[var(--muted)] group-hover:text-[var(--accent)]" />
+                    <div className="flex flex-1 flex-col px-3 pt-5 pb-3">
+                      <div className="flex items-center justify-between">
+                        <span className="inline-flex items-center rounded-full bg-[var(--accent-soft)] px-3 py-1 text-xs text-[var(--accent)]">
+                          {a.category}
+                        </span>
+                        <span className="font-mono text-xs tracking-[0.1em] text-[var(--muted)]">{a.date}</span>
+                      </div>
+                      <div className="mt-5 flex items-start justify-between gap-4">
+                        <h3 className="text-[19px] md:text-xl leading-snug tracking-tight">{a.title}</h3>
+                        <Arrow className="mt-1 text-[var(--muted)] group-hover:text-[var(--accent)]" />
+                      </div>
+                      <p className="mt-3 text-[14px] leading-relaxed text-[var(--muted)] line-clamp-2">{a.excerpt}</p>
                     </div>
-                    <p className="mt-3 text-[14px] leading-relaxed text-[var(--muted)] line-clamp-2">{a.excerpt}</p>
-                  </div>
-                </a>
-              </article>
-            ))}
+                  </a>
+                </article>
+              )
+            })}
           </div>
         </div>
 
