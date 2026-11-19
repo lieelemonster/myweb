@@ -126,15 +126,15 @@ export const ARTICLES: Article[] = [
 {
     category: '产品思考',
     title: '从ERP到AI客服：我这两年看到的产品经理能力变化',
-    excerpt: '从 Caguuu ERP 到「多客AI」，两年两段产品经历。聊聊传统PM和AI产品经理在能力边界、工作方式上的真实变化。',
+    excerpt: '从 Caguuu ERP 到「AI生意助手」，两年两段产品经历。聊聊传统PM和AI产品经理在能力边界、工作方式上的真实变化。',
     date: '2026.01.18',
     cover: 'covers/skills.jpg',
     href: 'articles/erp-to-ai-pm.html',
   },
 {
     category: 'AI 客服',
-    title: '客服机器人答非所问，用户为什么宁愿等人工？我做「多客AI」的一次复盘',
-    excerpt: '客服机器人答非所问，用户宁愿等人工。复盘「多客AI」：跨境电商卖家真正需要什么样的AI客服，以及我们怎么改才见效。',
+    title: '客服机器人答非所问，用户为什么宁愿等人工？我做「AI生意助手」的一次复盘',
+    excerpt: '客服机器人答非所问，用户宁愿等人工。复盘「AI生意助手」：跨境电商卖家真正需要什么样的AI客服，以及我们怎么改才见效。',
     date: '2026.06.08',
     cover: 'covers/cs.jpg',
     href: 'articles/duoke-ai-review.html',
@@ -152,7 +152,7 @@ export const ABOUT = {
   ],
   journey: [
     { year: '2023', title: '产品经理 · 上海卡谷电子商务有限公司', tags: ['B 端', '跨境电商'] },
-    { year: '2025', title: 'AI 产品经理 · 深圳美云集网络科技有限责任公司', tags: ['LLM', 'RAG'] },
+    { year: '2025', title: 'AI 产品经理 · 阿里国际数字商业集团', tags: ['LLM', 'RAG'] },
   ],
   photos: [img('photo-1499750310107-5fef28a66643'), img('photo-1783663911692-130a88e6ccc3')],
 }
