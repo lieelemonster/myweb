@@ -151,8 +151,8 @@ export const ABOUT = {
     { value: '4', label: '个人 Vibe Coding 项目' },
   ],
   journey: [
-    { year: '2023', title: '产品经理 · 上海卡谷电子商务有限公司', tags: ['B 端', '跨境电商'] },
-    { year: '2025', title: 'AI 产品经理 · 阿里国际数字商业集团', tags: ['LLM', 'RAG'] },
+    { year: '2023', title: '产品经理', tags: ['B 端', '跨境电商'] },
+    { year: '2025', title: 'AI 产品经理', tags: ['LLM', 'RAG'] },
   ],
   photos: [img('photo-1499750310107-5fef28a66643'), img('photo-1783663911692-130a88e6ccc3')],
 }
